@@ -1,0 +1,27 @@
+$Id: README,v 1.1 2014-05-01 20:14:06-07 - - $
+
+Isaiah Solomon
+icsolomo
+1344680
+CMPS 109
+MACKEY
+
+colors.cppgen
+debug.cpp
+debug.h
+graphics.cpp
+graphics.h
+interp.cpp
+interp.h
+main.cpp
+Makefile
+Makefile.dep
+mk-colors.perl
+README
+rgbcolor.cpp
+rgbcolor.h
+shape.cpp
+shape.h
+util.cpp
+util.h
+util.tcc

@@ -1,0 +1,138 @@
+/*
+ * Isaiah Solomon
+ * icsolomo
+ * CMPS 12M
+ * 10/10/2014
+ * BusinessSearch.java
+ * This file reads the first number in the database, allocates an array of
+ *   the appropriate size, then read in all of the businesses in the
+ *   database.
+ */
+
+import java.io.*;
+
+class Business {
+	private String name;
+	private String phoneNumber;
+	
+	Business (String businessInfo) {
+		String businessDelimiters = ",";	// Separates the line using a delimiter, then stores into respected variables
+		String[] seperatedBusinessInfo = businessInfo.split(businessDelimiters);
+		this.name = seperatedBusinessInfo[0];
+		this.phoneNumber = seperatedBusinessInfo[1];
+	}
+	Business (String businessName, String businessNumber) {
+		this.name = businessName;
+		this.phoneNumber = businessNumber;
+	}
+	public String Name () {
+		return this.name;
+	}
+	public String Number () {
+		return this.phoneNumber;
+	}
+	public void changeNameTo (String newName) {
+		this.name = newName;
+	}
+	public void changeNumberTo (String newNumber) {
+		this.phoneNumber = newNumber;
+	}
+}
+
+public class BusinessSearch {
+    static String database = "4\nBob's Pizza,(831)555-1212\nPizza My Animal,(831)555-3231\nSous Vide Surprise,(831)555-8080\nAaron and Sons,(831)555-1000";
+    static String query = "Bob's Pizza";
+    static String[] tokens = database.split("\n");	
+    static int amountOfBusinesses = Integer.parseInt(tokens[0]);
+    static Business[] businessList = new Business[amountOfBusinesses + 1];
+    
+    public static void main (String[] args) throws IOException{
+    	BufferedReader in = new BufferedReader(new FileReader("list.txt"));
+    	while(true) {
+    		String name = in.readLine();
+    		if (name == null) break;
+    		System.out.println("Hello, " + name + ".");
+    	}
+    	
+    	for (int i = 1; i <= amountOfBusinesses; i++) {
+    		businessList[i - 1] = new Business(tokens[i]);
+    	}
+    	System.out.println(amountOfBusinesses);
+    	for (int i = 0; i < amountOfBusinesses; i++) {
+    		System.out.println(businessList[i].Name() + " " + businessList[i].Number());
+    	}
+    	System.out.println("");
+    	MergeSort(businessList, amountOfBusinesses);
+    	for (int i = 0; i < amountOfBusinesses; i++) {
+    		System.out.println(businessList[i].Name() + " " + businessList[i].Number());
+    	}
+    }
+
+    public static String Search(Business[] database, String query, int length) {
+		int lower = 0, upper = length - 1, current, counter = 0;
+		while (true) {
+			current = (lower + upper) / 2;	// Index to check
+			if (query.equals(database[current].Name())) {	// If query is the same as the index,
+				return database[current].Number();			//   return the phone number of the business.
+			} else if (lower > upper) {						// Else if query is not found,
+				return "NOT FOUND";							//   return "NOT FOUND".
+			} else {
+				while (database[current].Name().charAt(counter) == query.charAt(counter) && 
+						(counter < query.length() - 1)) {	// Loop until chars are not equal
+					counter++;	// Increment counter
+				}
+				if (database[current].Name().charAt(counter) < query.charAt(counter))	// If query is after index,
+					lower = current + 1;												//   set lowerbound to current index + 1.
+				else																	// Else if query is before index,
+					upper = current - 1;												//   set upperbound to current index - 1.
+				counter = 0;	// Reset counter
+            }
+		}
+    }
+    
+    public static void MergeSort(Business[] database, int length) {
+    	Business[] workspace = new Business[length];
+        SplitMerge(workspace, 0, length - 1);
+    }
+
+    public static void SplitMerge(Business[] workspace, int lower, int upper) {
+        if(lower == upper)
+            return;
+        int half = (upper + lower) / 2;
+        SplitMerge(workspace, lower,  half);
+        SplitMerge(workspace, half + 1, upper);
+        Merge(workspace, lower, half + 1, upper);
+    }
+
+    public static void Merge(Business[] workspace, int lowPointer, int highPointer, int upper) {
+        // While there are elements in the left or right runs
+    	int index = 0;                             // workspace index
+        int lowerBound = lowPointer;
+        int mid = highPointer - 1;
+        int numberOfItems = upper - lowPointer + 1;       // # of items
+        int counter = 0;
+
+        while(lowPointer <= mid && highPointer <= upper) {
+        	while (businessList[lowPointer].Name().charAt(counter) == businessList[highPointer].Name().charAt(counter) && 
+        			counter < businessList[lowPointer].Name().length() && counter < businessList[highPointer].Name().length()) {
+        		counter++;
+        	}
+        	if(businessList[lowPointer].Name().charAt(counter) < businessList[highPointer].Name().charAt(counter))
+        		workspace[index++] = businessList[lowPointer++];
+        	else
+        		workspace[index++] = businessList[highPointer++];
+        	counter = 0;
+        }
+
+        while(lowPointer <= mid) {
+        	workspace[index++] = businessList[lowPointer++];
+        }
+
+        while(highPointer <= upper) {
+        	workspace[index++] = businessList[highPointer++];
+        }
+
+        for(index = 0; index < numberOfItems; index++)
+           businessList[lowerBound + index] = workspace[index];
+    }
+}

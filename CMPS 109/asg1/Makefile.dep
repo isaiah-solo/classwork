@@ -1,0 +1,6 @@
+# Makefile.dep created Fri Jan  2 18:13:26 PST 2015
+commands.o: commands.cpp commands.h inode.h util.h debug.h
+debug.o: debug.cpp debug.h util.h
+inode.o: inode.cpp debug.h inode.h util.h
+util.o: util.cpp util.h debug.h
+main.o: main.cpp commands.h inode.h util.h debug.h

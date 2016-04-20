@@ -1,0 +1,6 @@
+# Makefile.dep created Thu Jan 15 19:42:41 PST 2015
+bigint.o: bigint.cpp bigint.h debug.h
+scanner.o: scanner.cpp scanner.h debug.h
+debug.o: debug.cpp debug.h util.h
+util.o: util.cpp util.h debug.h
+main.o: main.cpp bigint.h debug.h iterstack.h scanner.h util.h

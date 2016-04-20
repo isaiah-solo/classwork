@@ -1,0 +1,11 @@
+# Makefile.dep created Mon Mar  2 17:05:29 PST 2015
+debug.o: debug.cpp debug.h util.h util.tcc
+graphics.o: graphics.cpp graphics.h rgbcolor.h shape.h util.h debug.h \
+ util.tcc
+interp.o: interp.cpp debug.h interp.h graphics.h rgbcolor.h shape.h \
+ util.h util.tcc
+rgbcolor.o: rgbcolor.cpp rgbcolor.h colors.cppgen
+shape.o: shape.cpp graphics.h rgbcolor.h shape.h util.h debug.h util.tcc
+util.o: util.cpp util.h debug.h util.tcc
+main.o: main.cpp debug.h graphics.h rgbcolor.h shape.h interp.h util.h \
+ util.tcc

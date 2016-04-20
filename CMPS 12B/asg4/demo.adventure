@@ -1,0 +1,79 @@
+r entrance
+d You wake up to find a portal in front of your bed
+d Judging by all the sci fi and fantasy movies you've watched, you presume it's a portal to another dimension.
+o you get closer to it
+t realm
+o you go back to sleep
+t entrance
+
+r continue
+d You go back to sleep in hopes of forgetting everything you just saw
+d You fall into deep sleep
+o continue
+t entrance
+
+r realm
+d You wake up in what seems to be another realm, You look around and notice the different features of the land.  A sun, similar to the one at home, shines bright upon a light blue sky with what seems to be pink clouds.
+d You look around and you see a fountain some ways from you where a creature that looks to be like a fairy drinks from it.
+d The fairy looks kind of hot, but you're not sure if it's weird to think that.
+o flirt with the fairy
+t spitgame
+o drink from the fountain
+t realm
+o go on
+t forest
+
+r spitgame
+d As you walk up to the fairy, you examine her features and you forget about everything else that'd happen
+o say "aye yo cutie!"
+t kindaflirting
+o chicken out
+t fairydie
+
+r kindaflirting
+d You shout "AYE YO CUTIE" in the loudest voice possible and it starts shaking the ground. The fairy turns around and says "hey there, wanna go back to my place?"
+o sure
+t win
+o nah
+t fairydie
+
+r fairydie
+d You become a wimp and decide to turn back despite all of the love books you have read.
+d However, the fairy senses fear in you and turns into a giant werewolf and eats you pelvis first.
+d THE END :(
+
+r forest
+d You go on and walk and find yourself approaching a dense forest
+o go through it
+t tigers
+o go around it
+t bandits
+
+r tigers
+d you decide to go through the forest and find yourself in a clearing
+d just then a family of tigers appear out of nowhere
+d right around the same time a sword emerges from the ground in front of you
+o try to run away
+t dead
+o fight
+t win
+
+r bandits
+d You decide to go around the forest because it looks hella sketch.
+d After a couple of hours of walking you sit down behind a golden tree and find what seems to be treasure behind it!
+d All of a sudden, some bandits from behind and attack!
+o fight back!
+t dead
+o cower in fear
+t lucky
+
+r lucky
+d You cower in fear hoping the bandits will not notice you.  The bandits laugh at you and leave the treasure with you in pity. I mean, at least you have the treasure…
+o take treasure
+t win
+
+r dead
+d you dead bruh.
+
+r win
+d Good job! You win!

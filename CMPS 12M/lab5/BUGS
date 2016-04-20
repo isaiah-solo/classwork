@@ -1,0 +1,45 @@
+Isaiah Solomon
+icsolomo
+1344680
+CMPS 12B
+BUGS
+Contains list of bugs and changes
+
+Line 31: 	(change)	- struct node u, v;	--> struct node *u, *v;
+		because u and v should be pointers to Nodes in memory, not variables.
+
+Line 32,33: 	(add)		- u = (struct node *)malloc(sizeof(struct node));
+				- v = (struct node *)malloc(sizeof(struct node));
+		because u and v have to point to a Node before inserting values.
+
+Line 34-37: 	(swap)		- v.value = b; 
+				- v.next = head;
+					with
+				- u.value = a;
+				- u.next = &v;
+		because v has to reference the list before u.next can point to v.
+
+	    	(change)	- v.value = b;		-->	v->value = b;
+				- v.next = head;	-->	v->next = head;
+				- u.value = a;		-->	u->value = a;
+				- u.next = &v;		-->	u->next = v;
+		because u and v have been changed into pointers, so we use "->" instead of ".".
+
+Line 44: 	(add)		- struct node *temp;
+		because we need to create a temporary node to hole the n->next.
+
+Line 49,51:	(add)		- temp = n->next;
+				- free(temp);
+		because temp points to n->next and then frees it so we can properly iterate n.
+
+Line 70-74:	(change)	- free(head);		-->	struct node *pointer1 = head;
+								while (pointer1) {
+									struct node *pointer2 = pointer1;
+									pointer1 = pointer1->next;
+									free(pointer2);
+								}
+		because "free(head)" only frees the head, but we need to free every node. This replacement code
+		frees all nodes.
+
+
+
