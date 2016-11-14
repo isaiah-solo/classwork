@@ -1,0 +1,56 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@; @;
+
+
+1.1
+date	2009.02.04.01.24.36;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@(* $Id: absyn.ml,v 1.1 2008-02-05 15:27:12-08 - - $ *)
+
+(*
+* Abstract syntax definitions for SB->IR.
+*)
+
+type linenr     = int
+and  variable   = string
+and  label      = string
+and  number     = float
+and  oper       = string
+and  arrayfn    = variable * expr
+
+and  print      = Printexpr of expr
+                | String of string
+
+and  memref     = Arrayfn of arrayfn
+                | Variable of variable
+
+and  expr       = Binop of oper * expr * expr
+                | Unop of oper * expr
+                | Memref of memref
+                | Constant of number
+
+and  stmt       = Dim of arrayfn
+                | Let of memref * expr
+                | Goto of label
+                | If of expr * label
+                | Print of print list
+                | Input of memref list
+
+and  program    = (linenr * label option * stmt option) list
+
+@

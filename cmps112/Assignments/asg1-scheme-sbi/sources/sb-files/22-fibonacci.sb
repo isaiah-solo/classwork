@@ -1,0 +1,17 @@
+# $Id: 22-fibonacci.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+#
+# Print out all Fibonacci numbers up to max.
+#
+	let max = 10^6
+
+	let fib0 = 0
+	let fib1 = 1
+	print "fib(", 0, ")=", fib0
+	print "fib(", 1, ")=", fib1
+	let i=1
+loop:	let fib = fib0 + fib1
+	let i=i+1
+	print "fib(", i, ")=", fib
+	let fib0 = fib1
+	let fib1 = fib
+	if fib <= max goto loop

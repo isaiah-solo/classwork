@@ -1,0 +1,32 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2015.10.06.21.39.58;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@#!/bin/sh -x
+# $Id: mk.dc1man,v 1.3 2012-02-03 17:22:21-08 - - $
+cid + $0
+zcat /usr/share/man/man1/dc.1.gz >dc.1.man
+groff -man -st -rL1000i -Tlatin1 -P-cbuo dc.1.man | perl -00pe0 >dc.1.tt
+groff -man -spte -Tps dc.1.man >dc.1.ps
+letterbbox dc.1.ps
+mkpdf dc.1.ps &
+gv --scale=1.1 dc.1.ps &
+@

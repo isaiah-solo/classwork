@@ -1,0 +1,2 @@
+oc: 94-syntax.oc: 3: syntax error, unexpected TOK_INT
+oc: 94-syntax.oc: 6: syntax error, unexpected TOK_VOID, expecting '=' or '('

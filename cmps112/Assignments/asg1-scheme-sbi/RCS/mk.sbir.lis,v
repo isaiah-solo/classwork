@@ -1,0 +1,46 @@
+head	1.2;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.2
+date	2012.01.20.01.15.52;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@-
+@
+text
+@#!/bin/sh
+# $Id: mk.sbir.lis,v 1.1 2012-01-19 17:13:35-08 - - $
+cid + $0 sbi.scm .score/*.sbir
+mkpspdf sbir-files.ps sbi.scm .score/*.sbir
+@
+
+
+1.1
+log
+@-
+@
+text
+@d2 1
+a2 1
+# $Id: mk.sbir.lis,v 1.1 2011-04-08 20:21:00-07 - - $
+d4 1
+a4 1
+mkpspdf sbir.lis.ps sbi.scm .score/*.sbir
+@

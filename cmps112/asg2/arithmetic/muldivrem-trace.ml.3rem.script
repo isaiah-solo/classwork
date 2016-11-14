@@ -1,0 +1,52 @@
+bash-1$ ocaml
+        OCaml version 4.02.1
+
+# #use "muldivrem-trace.ml";;
+val double : int -> int = <fun>
+val mul' : int * int * int -> int * int = <fun>
+val mul : int * int -> int = <fun>
+val divrem' : int * int * int -> int * int = <fun>
+val divrem : int * int -> int * int = <fun>
+val div : int * int -> int = <fun>
+val rem : int * int -> int = <fun>
+mul is now traced.
+mul' is now traced.
+div is now traced.
+rem is now traced.
+divrem is now traced.
+divrem' is now traced.
+# rem (876543, 123);;
+rem <-- (876543, 123)
+divrem <-- (876543, 123)
+divrem' <-- (876543, 1, 123)
+divrem' <-- (876543, 2, 246)
+divrem' <-- (876543, 4, 492)
+divrem' <-- (876543, 8, 984)
+divrem' <-- (876543, 16, 1968)
+divrem' <-- (876543, 32, 3936)
+divrem' <-- (876543, 64, 7872)
+divrem' <-- (876543, 128, 15744)
+divrem' <-- (876543, 256, 31488)
+divrem' <-- (876543, 512, 62976)
+divrem' <-- (876543, 1024, 125952)
+divrem' <-- (876543, 2048, 251904)
+divrem' <-- (876543, 4096, 503808)
+divrem' <-- (876543, 8192, 1007616)
+divrem' --> (0, 876543)
+divrem' --> (4096, 372735)
+divrem' --> (6144, 120831)
+divrem' --> (6144, 120831)
+divrem' --> (6656, 57855)
+divrem' --> (6912, 26367)
+divrem' --> (7040, 10623)
+divrem' --> (7104, 2751)
+divrem' --> (7104, 2751)
+divrem' --> (7120, 783)
+divrem' --> (7120, 783)
+divrem' --> (7124, 291)
+divrem' --> (7126, 45)
+divrem' --> (7126, 45)
+divrem --> (7126, 45)
+rem --> 45
+- : int = 45
+# 

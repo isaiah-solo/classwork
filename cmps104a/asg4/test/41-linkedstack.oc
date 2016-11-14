@@ -1,0 +1,56 @@
+// $Id: 41-linkedstack.oc,v 1.7 2012-12-03 13:24:26-08 - - $
+
+#include "oclib.oh"
+
+struct node {
+   string data;
+   node link;
+}
+
+struct stack {
+   node top;
+}
+
+bool empty (stack stack) {
+   assert (stack != null);
+   return stack.top == null;
+}
+
+stack new_stack () {
+   stack stack = new stack ();
+   stack.top = null;
+   return stack;
+}
+
+void push (stack stack, string str) {
+   assert (stack != null);
+   node tmp = new node ();
+   tmp.data = str;
+   tmp.link = stack.top;
+   stack.top = tmp;
+}
+
+string pop (stack stack) {
+   assert (stack != null);
+   assert (! empty (stack));
+   string tmp = stack.top.data;
+   stack.top = stack.top.link;
+   return tmp;
+}
+
+// Main program.
+
+string[] argv = getargv ();
+stack stack = new_stack ();
+int argi = 0;
+
+while (argv[argi] != null) {
+   push (stack, argv[argi]);
+   argi = argi + 1;
+}
+
+while (! empty (stack)) {
+   puts (pop (stack));
+   endl ();
+}
+

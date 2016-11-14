@@ -1,0 +1,19 @@
+#!/bin/bash
+# $Id: mk.tests,v 1.1 2015-03-17 15:42:29-07 - - $
+export PATH=$PATH:/afs/cats.ucsc.edu/courses/cmps012b-wm/bin
+PROG=oc
+
+OCDIR=/afs/cats.ucsc.edu/courses/cmps104a-wm/Assignments/oc-programs
+cp $OCDIR/*.oh $OCDIR/*.oc .
+
+for ocfile in *.oc nosuch.oc
+do
+   $PROG $ocfile 1>$ocfile.out 2>$ocfile.err
+done
+
+if [ -f 11-numbers.tok ]
+then
+   # Proj 2 ignores but does not complain about the -y flag.
+   # Proj 3, but not proj 2, outputs yyparse trace as well.
+   $PROG -ly 11-numbers.oc 2>11-numbers.lexyacctrace
+fi

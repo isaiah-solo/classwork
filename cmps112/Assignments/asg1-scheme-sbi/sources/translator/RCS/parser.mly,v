@@ -1,0 +1,110 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.24.36;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@/* $Id: parser.mly,v 1.1 2008-02-05 15:27:12-08 - - $ */
+
+%{
+(******** BEGIN PARSER SEMANTICS ********)
+
+open Absyn
+open Etc
+open Lexing
+
+let syntax () = lexeprint (symbol_start_pos ()) ["syntax error"]
+
+let linenr () = (symbol_start_pos ()).pos_lnum
+
+(******** END PARSER SEMANTICS ********)
+%}
+
+%token <string> RELOP EQUAL ADDOP MULOP POWOP
+%token <string> IDENT NUMBER STRING
+%token COLON COMMA LPAR RPAR EOL EOF
+%token DIM LET GOTO IF PRINT INPUT
+
+%type <Absyn.program> program
+
+%start program
+
+%%
+
+program : stmts EOF             { List.rev $1 }
+
+stmts   : stmts stmt EOL        { $2::$1 }
+        | stmts error EOL       { syntax (); $1 }
+        |                       { [] }
+
+stmt    : label action          { (linenr (), Some $1, Some $2) }
+        | action                { (linenr (), None, Some $1) }
+        | label                 { (linenr (), Some $1, None) }
+        |                       { (linenr (), None, None) }
+
+label   : ident COLON           { $1 }
+
+action  : DIM arrayfn           { Dim ($2) }
+        | LET memref EQUAL expr { Let ($2, $4) }
+        | GOTO ident            { Goto ($2) }
+        | IF relexpr GOTO ident { If ($2, $4) }
+        | PRINT prints          { Print ($2) }
+        | PRINT                 { Print ([]) }
+        | INPUT inputs          { Input ($2) }
+
+prints  : print COMMA prints    { $1::$3 }
+        | print                 { [$1] }
+
+print   : expr                  { Printexpr ($1) }
+        | STRING                { String ($1) }
+
+inputs  : memref COMMA inputs   { $1::$3 }
+        | memref                { [$1] }
+
+memref  : ident                 { Variable ($1) }
+        | arrayfn               { Arrayfn ($1) }
+
+relexpr : expr RELOP expr       { Binop ($2, $1, $3) }
+        | expr EQUAL expr       { Binop ($2, $1, $3) }
+
+expr    : expr ADDOP term       { Binop ($2, $1, $3) }
+        | term                  { $1 }
+
+term    : term MULOP factor     { Binop ($2, $1, $3) }
+        | factor                { $1 }
+
+factor  : primary POWOP factor  { Binop ($2, $1, $3) }
+        | primary               { $1 }
+
+primary : LPAR expr RPAR        { $2 }
+        | ADDOP primary         { Unop ($1, $2) }
+        | NUMBER                { Constant (float_of_string ($1)) }
+        | memref                { Memref ($1) }
+
+arrayfn : ident LPAR expr RPAR  { ($1, $3) }
+
+ident   : IDENT                 { $1 }
+        | DIM                   { "dim" }
+        | GOTO                  { "goto" }
+        | IF                    { "if" }
+        | INPUT                 { "input" }
+        | LET                   { "let" }
+        | PRINT                 { "print" }
+
+@

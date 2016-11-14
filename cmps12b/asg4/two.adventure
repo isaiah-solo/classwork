@@ -1,0 +1,14 @@
+r room1
+d This is room one.
+d You are awake.
+o Go to sleep.
+t room2
+o Stay awake.
+t room1
+
+r room2
+d You are sleeping.
+o Stay asleep.
+t room2
+o Wake up.
+t room1

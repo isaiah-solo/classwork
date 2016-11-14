@@ -1,0 +1,204 @@
+TOK_ROOT "" 0.0.0
+|   TOK_PROTOTYPE "" 12.23.0
+|   |   TOK_VOID "void" 12.23.0
+|   |   |   TOK_DECLID "__assert_fail" 12.23.5
+|   |   TOK_PARAMLIST "(" 12.23.19
+|   |   |   TOK_STRING "string" 12.23.20
+|   |   |   |   TOK_DECLID "expr" 12.23.27
+|   |   |   |   TOK_STRING "string" 12.23.33
+|   |   |   |   |   TOK_DECLID "file" 12.23.40
+|   |   |   |   TOK_INT "int" 12.23.46
+|   |   |   |   |   TOK_DECLID "line" 12.23.50
+|   TOK_PROTOTYPE "" 12.24.0
+|   |   TOK_VOID "void" 12.24.0
+|   |   |   TOK_DECLID "putb" 12.24.5
+|   |   TOK_PARAMLIST "(" 12.24.10
+|   |   |   TOK_BOOL "bool" 12.24.11
+|   |   |   |   TOK_DECLID "b" 12.24.16
+|   TOK_PROTOTYPE "" 12.25.0
+|   |   TOK_VOID "void" 12.25.0
+|   |   |   TOK_DECLID "putc" 12.25.5
+|   |   TOK_PARAMLIST "(" 12.25.10
+|   |   |   TOK_CHAR "char" 12.25.11
+|   |   |   |   TOK_DECLID "c" 12.25.16
+|   TOK_PROTOTYPE "" 12.26.0
+|   |   TOK_VOID "void" 12.26.0
+|   |   |   TOK_DECLID "puti" 12.26.5
+|   |   TOK_PARAMLIST "(" 12.26.10
+|   |   |   TOK_INT "int" 12.26.11
+|   |   |   |   TOK_DECLID "i" 12.26.15
+|   TOK_PROTOTYPE "" 12.27.0
+|   |   TOK_VOID "void" 12.27.0
+|   |   |   TOK_DECLID "puts" 12.27.5
+|   |   TOK_PARAMLIST "(" 12.27.10
+|   |   |   TOK_STRING "string" 12.27.11
+|   |   |   |   TOK_DECLID "s" 12.27.18
+|   TOK_PROTOTYPE "" 12.28.0
+|   |   TOK_VOID "void" 12.28.0
+|   |   |   TOK_DECLID "endl" 12.28.5
+|   |   TOK_PARAMLIST "(" 12.28.10
+|   TOK_PROTOTYPE "" 12.29.0
+|   |   TOK_INT "int" 12.29.0
+|   |   |   TOK_DECLID "getc" 12.29.4
+|   |   TOK_PARAMLIST "(" 12.29.9
+|   TOK_PROTOTYPE "" 12.30.0
+|   |   TOK_STRING "string" 12.30.0
+|   |   |   TOK_DECLID "getw" 12.30.7
+|   |   TOK_PARAMLIST "(" 12.30.12
+|   TOK_PROTOTYPE "" 12.31.0
+|   |   TOK_STRING "string" 12.31.0
+|   |   |   TOK_DECLID "getln" 12.31.7
+|   |   TOK_PARAMLIST "(" 12.31.13
+|   TOK_PROTOTYPE "" 12.32.0
+|   |   TOK_STRING "string" 12.32.0
+|   |   |   TOK_ARRAY "[]" 12.32.6
+|   |   |   TOK_DECLID "getargv" 12.32.9
+|   |   TOK_PARAMLIST "(" 12.32.17
+|   TOK_PROTOTYPE "" 12.33.0
+|   |   TOK_VOID "void" 12.33.0
+|   |   |   TOK_DECLID "exit" 12.33.5
+|   |   TOK_PARAMLIST "(" 12.33.10
+|   |   |   TOK_INT "int" 12.33.11
+|   |   |   |   TOK_DECLID "status" 12.33.15
+|   TOK_VARDECL "=" 13.6.12
+|   |   TOK_INT "int" 13.6.0
+|   |   |   TOK_ARRAY "[]" 13.6.3
+|   |   |   TOK_DECLID "board" 13.6.6
+|   |   TOK_NEWARRAY "new" 13.6.14
+|   |   |   TOK_INT "int" 13.6.18
+|   |   |   TOK_INTCON "8" 13.6.22
+|   TOK_FUNCTION "" 13.8.0
+|   |   TOK_BOOL "bool" 13.8.0
+|   |   |   TOK_DECLID "is_safe" 13.8.5
+|   |   TOK_BLOCK "{" 13.8.26
+|   |   |   TOK_VARDECL "=" 13.9.11
+|   |   |   |   TOK_INT "int" 13.9.3
+|   |   |   |   |   TOK_DECLID "col" 13.9.7
+|   |   |   |   TOK_INTCON "0" 13.9.13
+|   |   |   |   TOK_WHILE "while" 13.10.3
+|   |   |   |   |   TOK_LT "<" 13.10.14
+|   |   |   |   |   |   TOK_IDENT "col" 13.10.10
+|   |   |   |   |   |   TOK_IDENT "newcol" 13.10.16
+|   |   |   |   |   TOK_BLOCK "{" 13.10.24
+|   |   |   |   |   |   TOK_IF "if" 13.11.6
+|   |   |   |   |   |   |   TOK_EQ "==" 13.11.21
+|   |   |   |   |   |   |   |   TOK_INDEX "[" 13.11.15
+|   |   |   |   |   |   |   |   |   TOK_IDENT "board" 13.11.10
+|   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.11.16
+|   |   |   |   |   |   |   |   TOK_INDEX "[" 13.11.29
+|   |   |   |   |   |   |   |   |   TOK_IDENT "board" 13.11.24
+|   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.11.30
+|   |   |   |   |   |   |   TOK_RETURN "return" 13.11.39
+|   |   |   |   |   |   |   |   TOK_IDENT "false" 13.11.46
+|   |   |   |   |   |   |   TOK_VARDECL "=" 13.12.19
+|   |   |   |   |   |   |   |   TOK_INT "int" 13.12.6
+|   |   |   |   |   |   |   |   |   TOK_DECLID "diagonal" 13.12.10
+|   |   |   |   |   |   |   |   '-' "-" 13.12.32
+|   |   |   |   |   |   |   |   |   TOK_INDEX "[" 13.12.26
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "board" 13.12.21
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.12.27
+|   |   |   |   |   |   |   |   |   TOK_INDEX "[" 13.12.39
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "board" 13.12.34
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.12.40
+|   |   |   |   |   |   |   TOK_IF "if" 13.13.6
+|   |   |   |   |   |   |   |   TOK_EQ "==" 13.13.19
+|   |   |   |   |   |   |   |   |   TOK_IDENT "diagonal" 13.13.10
+|   |   |   |   |   |   |   |   |   '-' "-" 13.13.26
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.13.22
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.13.28
+|   |   |   |   |   |   |   |   TOK_RETURN "return" 13.13.36
+|   |   |   |   |   |   |   |   |   TOK_IDENT "false" 13.13.43
+|   |   |   |   |   |   |   TOK_IF "if" 13.14.6
+|   |   |   |   |   |   |   |   TOK_EQ "==" 13.14.19
+|   |   |   |   |   |   |   |   |   TOK_IDENT "diagonal" 13.14.10
+|   |   |   |   |   |   |   |   |   '-' "-" 13.14.29
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.14.22
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.14.31
+|   |   |   |   |   |   |   |   TOK_RETURN "return" 13.14.36
+|   |   |   |   |   |   |   |   |   TOK_IDENT "false" 13.14.43
+|   |   |   |   |   |   |   '=' "=" 13.15.10
+|   |   |   |   |   |   |   |   TOK_IDENT "col" 13.15.6
+|   |   |   |   |   |   |   |   '+' "+" 13.15.16
+|   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.15.12
+|   |   |   |   |   |   |   |   |   TOK_INTCON "1" 13.15.18
+|   |   |   |   TOK_RETURN "return" 13.17.3
+|   |   |   |   |   TOK_IDENT "true" 13.17.10
+|   |   TOK_PARAMLIST "(" 13.8.13
+|   |   |   TOK_INT "int" 13.8.14
+|   |   |   |   TOK_DECLID "newcol" 13.8.18
+|   TOK_FUNCTION "" 13.20.0
+|   |   TOK_VOID "void" 13.20.0
+|   |   |   TOK_DECLID "printqueens" 13.20.5
+|   |   TOK_BLOCK "{" 13.20.20
+|   |   |   TOK_VARDECL "=" 13.21.11
+|   |   |   |   TOK_INT "int" 13.21.3
+|   |   |   |   |   TOK_DECLID "col" 13.21.7
+|   |   |   |   TOK_INTCON "0" 13.21.13
+|   |   |   |   TOK_WHILE "while" 13.22.3
+|   |   |   |   |   TOK_LT "<" 13.22.14
+|   |   |   |   |   |   TOK_IDENT "col" 13.22.10
+|   |   |   |   |   |   TOK_INTCON "8" 13.22.16
+|   |   |   |   |   TOK_BLOCK "{" 13.22.19
+|   |   |   |   |   |   TOK_CALL "(" 13.23.11
+|   |   |   |   |   |   |   TOK_IDENT "putc" 13.23.6
+|   |   |   |   |   |   |   TOK_CHR "chr" 13.23.12
+|   |   |   |   |   |   |   |   '+' "+" 13.23.28
+|   |   |   |   |   |   |   |   |   TOK_INDEX "[" 13.23.22
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "board" 13.23.17
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.23.23
+|   |   |   |   |   |   |   |   |   TOK_ORD "ord" 13.23.30
+|   |   |   |   |   |   |   |   |   |   TOK_CHARCON "'1'" 13.23.34
+|   |   |   |   |   |   |   '=' "=" 13.24.10
+|   |   |   |   |   |   |   |   TOK_IDENT "col" 13.24.6
+|   |   |   |   |   |   |   |   '+' "+" 13.24.16
+|   |   |   |   |   |   |   |   |   TOK_IDENT "col" 13.24.12
+|   |   |   |   |   |   |   |   |   TOK_INTCON "1" 13.24.18
+|   |   |   |   TOK_CALL "(" 13.26.8
+|   |   |   |   |   TOK_IDENT "putc" 13.26.3
+|   |   |   |   |   TOK_CHARCON "'\n'" 13.26.9
+|   |   TOK_PARAMLIST "(" 13.20.17
+|   TOK_FUNCTION "" 13.29.0
+|   |   TOK_VOID "void" 13.29.0
+|   |   |   TOK_DECLID "queens" 13.29.5
+|   |   TOK_BLOCK "{" 13.29.25
+|   |   |   TOK_IFELSE "if" 13.30.3
+|   |   |   |   TOK_EQ "==" 13.30.14
+|   |   |   |   |   TOK_IDENT "newcol" 13.30.7
+|   |   |   |   |   TOK_INTCON "8" 13.30.17
+|   |   |   |   TOK_BLOCK "{" 13.31.8
+|   |   |   |   |   TOK_VARDECL "=" 13.32.14
+|   |   |   |   |   |   TOK_INT "int" 13.32.6
+|   |   |   |   |   |   |   TOK_DECLID "row" 13.32.10
+|   |   |   |   |   |   TOK_INTCON "0" 13.32.16
+|   |   |   |   |   |   TOK_WHILE "while" 13.33.6
+|   |   |   |   |   |   |   TOK_LT "<" 13.33.17
+|   |   |   |   |   |   |   |   TOK_IDENT "row" 13.33.13
+|   |   |   |   |   |   |   |   TOK_INTCON "8" 13.33.19
+|   |   |   |   |   |   |   TOK_BLOCK "{" 13.33.22
+|   |   |   |   |   |   |   |   '=' "=" 13.34.23
+|   |   |   |   |   |   |   |   |   TOK_INDEX "[" 13.34.14
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "board" 13.34.9
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.34.15
+|   |   |   |   |   |   |   |   |   TOK_IDENT "row" 13.34.25
+|   |   |   |   |   |   |   |   |   TOK_IF "if" 13.35.9
+|   |   |   |   |   |   |   |   |   |   TOK_CALL "(" 13.35.21
+|   |   |   |   |   |   |   |   |   |   |   TOK_IDENT "is_safe" 13.35.13
+|   |   |   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.35.22
+|   |   |   |   |   |   |   |   |   |   TOK_CALL "(" 13.35.38
+|   |   |   |   |   |   |   |   |   |   |   TOK_IDENT "queens" 13.35.31
+|   |   |   |   |   |   |   |   |   |   |   '+' "+" 13.35.46
+|   |   |   |   |   |   |   |   |   |   |   |   TOK_IDENT "newcol" 13.35.39
+|   |   |   |   |   |   |   |   |   |   |   |   TOK_INTCON "1" 13.35.48
+|   |   |   |   |   |   |   |   |   '=' "=" 13.36.13
+|   |   |   |   |   |   |   |   |   |   TOK_IDENT "row" 13.36.9
+|   |   |   |   |   |   |   |   |   |   '+' "+" 13.36.19
+|   |   |   |   |   |   |   |   |   |   |   TOK_IDENT "row" 13.36.15
+|   |   |   |   |   |   |   |   |   |   |   TOK_INTCON "1" 13.36.21
+|   |   |   |   TOK_CALL "(" 13.30.32
+|   |   |   |   |   TOK_IDENT "printqueens" 13.30.20
+|   |   TOK_PARAMLIST "(" 13.29.12
+|   |   |   TOK_INT "int" 13.29.13
+|   |   |   |   TOK_DECLID "newcol" 13.29.17
+|   TOK_CALL "(" 13.42.7
+|   |   TOK_IDENT "queens" 13.42.0
+|   |   TOK_INTCON "0" 13.42.8

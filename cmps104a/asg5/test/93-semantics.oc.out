@@ -1,0 +1,8 @@
+the symbol is: TOK_ROOT
+ the lexinfo is: 
+the symbol is: TOK_VARDECL
+ the lexinfo is: =
+the symbol is: TOK_INT
+ the lexinfo is: int
+the symbol is: TOK_NULL
+ the lexinfo is: null

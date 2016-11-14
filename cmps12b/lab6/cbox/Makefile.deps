@@ -1,0 +1,3 @@
+# Makefile.deps created Fri Nov 21 16:22:01 PST 2014
+cbox.o: cbox.c cbox.h
+main.o: main.c cbox.h

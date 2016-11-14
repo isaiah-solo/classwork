@@ -1,0 +1,11 @@
+TOK_ROOT "" 0.0.0
+|   TOK_VARDECL "=" 7.5.9
+|   |   TOK_STRING "string" 7.5.0
+|   |   |   TOK_DECLID "s" 7.5.7
+|   |   TOK_IDENT "abc" 7.5.12
+|   '=' "=" 7.7.2
+|   |   TOK_IDENT "s" 7.7.0
+|   |   TOK_IDENT "abcd" 7.7.5
+|   '=' "=" 7.8.2
+|   |   TOK_IDENT "s" 7.8.0
+|   |   TOK_IDENT "abc" 7.8.5

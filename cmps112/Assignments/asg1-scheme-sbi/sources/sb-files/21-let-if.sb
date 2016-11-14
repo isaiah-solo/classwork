@@ -1,0 +1,6 @@
+# $Id: 21-let-if.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+#
+	let i = 1
+loop:	print i
+	let i = i + 1
+	if i <= 10 goto loop

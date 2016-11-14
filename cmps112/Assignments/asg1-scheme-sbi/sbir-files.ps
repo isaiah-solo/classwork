@@ -1,0 +1,3090 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 38 24 574 768
+%%Title: sbir-files.ps
+%%For: Wesley Mackey
+%%Creator: GNU Enscript 1.6.6
+%%CreationDate: Fri Sep 23 18:23:20 2016
+%%Orientation: Portrait
+%%Pages: (atend)
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6 6
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6 6
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier-Bold /F-gs-font MF
+/F-gs-font 11 11 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [612 792] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-enscript-mycolor 1.6 6
+%%IncludeResource: font Times-Bold
+%%IncludeResource: font Times-Roman
+
+% Fonts.
+/Times-Bold /HeaderFont-Bold MF
+/HeaderDateF /HeaderFont-Bold findfont 12 scalefont def
+
+/Times-Roman /HeaderFont-Times MF
+/HeaderHDRF /HeaderFont-Times findfont 14 scalefont def
+
+/HeaderPageNumF /Helvetica-Bold findfont 28.8 scalefont def
+/HeaderPageCountF /Helvetica-Bold findfont 18 scalefont def
+
+/do_header {	% print enscript header
+  gsave
+    d_header_x d_header_y translate
+
+    /dhw d_header_w 4 sub def
+
+    /linecolor {0 0 0 setrgbcolor} bind def  % line color
+    /txcolor   {0 0 0 setrgbcolor} bind def  % text color
+    /fncolor   {0 0 0 setrgbcolor} bind def  % filename line color
+
+    .5 setlinewidth
+
+    % line across bottom of the header area
+    linecolor
+    0 0 moveto dhw 0 lineto
+
+    % side boxes
+    /sbw d_header_h 2 mul def	% side box width
+
+    % left side box
+    0 0 sbw d_header_h Box
+    linecolor
+    stroke
+
+    % date/time in left box
+    txcolor
+    HeaderDateF setfont
+    moddatestr dup stringwidth pop sbw exch sub 2 div
+    d_header_h 2 div 2 add moveto show
+    modtimestr dup stringwidth pop sbw exch sub 2 div
+    d_header_h 5 div moveto show
+
+    % right side box
+    dhw sbw sub 0 sbw d_header_h Box
+    linecolor
+    stroke
+
+    % get width of pagecount
+    HeaderPageCountF setfont
+    pagecountstr stringwidth pop
+
+    txcolor
+    HeaderPageNumF setfont
+    pagenumstr stringwidth pop add  % add to width of pagecount
+    sbw exch sub 2 div dhw sbw sub add
+    d_header_h .2 mul moveto
+
+    pagenumstr show
+
+    HeaderPageCountF setfont
+    pagecountstr show
+
+    % filename
+    fncolor
+    HeaderHDRF setfont
+    dhw fname stringwidth pop sub 2 div d_header_h 8 div moveto
+    fname show
+
+    % user supplied header string.
+    user_header_p {
+      /h d_header_h 8 div 5 mul def
+
+      % HACK around a bug in enscript 1.6.0:
+      % for some reason this is getting set to "(null)" and
+      %
+      user_header_center_str (\(null\)) eq {
+        /user_header_center_str () def
+      } if
+
+      % Implement strict enscript compatibility.
+      user_header_center_str () eq user_header_right_str () eq and {
+        dhw user_header_left_str stringwidth pop sub 2 div
+        h moveto user_header_left_str show
+      } {
+        sbw 5 add h moveto user_header_left_str show
+
+        dhw user_header_center_str stringwidth pop sub 2 div
+        h moveto user_header_center_str show
+
+	dhw sbw sub 5 sub user_header_right_str stringwidth pop
+	sub h moveto user_header_right_str show
+      } ifelse
+    } if
+
+  grestore
+} bind def
+%%EndResource
+/d_page_w 536 def
+/d_page_h 744 def
+/d_header_x 0 def
+/d_header_y 708 def
+/d_header_w 536 def
+/d_header_h 36 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 536 def
+/d_footer_h 0 def
+/d_output_w 536 def
+/d_output_h 708 def
+/cols 1 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (sbi.scm) def
+/fdir (.) def
+/ftail (sbi.scm) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(#!/afs/cats.ucsc.edu/courses/cmps112-wm/usr/racket/bin/mzscheme -qr) s
+32.4 682 M (2:) s
+52.2 682 M
+(;; $Id: sbi.scm,v 1.3 2016-09-23 18:23:20-07 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;) s
+32.4 658 M (4:) s
+52.2 658 M
+(;; NAME) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;    sbi.scm - silly basic interpreter) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;) s
+32.4 622 M (7:) s
+52.2 622 M
+(;; SYNOPSIS) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;    sbi.scm filename.sbir) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;) s
+25.8 586 M (10:) s
+52.2 586 M
+(;; DESCRIPTION) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;    The file mentioned in argv[1] is read and assumed to be an SBIR) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;    program, which is the executed.  Currently it is only printed.) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;) s
+25.8 538 M (14:) s
+25.8 526 M (15:) s
+52.2 526 M
+(\(define *stderr* \(current-error-port\)\)) s
+25.8 514 M (16:) s
+25.8 502 M (17:) s
+52.2 502 M
+(\(define *run-file*) s
+25.8 490 M (18:) s
+52.2 490 M
+(    \(let-values) s
+25.8 478 M (19:) s
+52.2 478 M
+(        \(\(\(dirpath basepath root?\)) s
+25.8 466 M (20:) s
+52.2 466 M
+(            \(split-path \(find-system-path 'run-file\)\)\)\)) s
+25.8 454 M (21:) s
+52.2 454 M
+(        \(path->string basepath\)\)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\)) s
+25.8 430 M (23:) s
+25.8 418 M (24:) s
+52.2 418 M
+(\(define \(die list\)) s
+25.8 406 M (25:) s
+52.2 406 M
+(    \(for-each \(lambda \(item\) \(display item *stderr*\)\) list\)) s
+25.8 394 M (26:) s
+52.2 394 M
+(    \(newline *stderr*\)) s
+25.8 382 M (27:) s
+52.2 382 M
+(    \(exit 1\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\)) s
+25.8 358 M (29:) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(define \(usage-exit\)) s
+25.8 334 M (31:) s
+52.2 334 M
+(    \(die `\("Usage: " ,*run-file* " filename"\)\)) s
+25.8 322 M (32:) s
+52.2 322 M
+(\)) s
+25.8 310 M (33:) s
+25.8 298 M (34:) s
+52.2 298 M
+(\(define \(readlist-from-inputfile filename\)) s
+25.8 286 M (35:) s
+52.2 286 M
+(    \(let \(\(inputfile \(open-input-file filename\)\)\)) s
+25.8 274 M (36:) s
+52.2 274 M
+(         \(if \(not \(input-port? inputfile\)\)) s
+25.8 262 M (37:) s
+52.2 262 M
+(             \(die `\(,*run-file* ": " ,filename ": open failed"\)\)) s
+25.8 250 M (38:) s
+52.2 250 M
+(             \(let \(\(program \(read inputfile\)\)\)) s
+25.8 238 M (39:) s
+52.2 238 M
+(                  \(close-input-port inputfile\)) s
+25.8 226 M (40:) s
+52.2 226 M
+(                         program\)\)\)\)) s
+25.8 214 M (41:) s
+25.8 202 M (42:) s
+52.2 202 M
+(\(define \(write-program-by-line filename program\)) s
+25.8 190 M (43:) s
+52.2 190 M
+(    \(printf "==================================================~n"\)) s
+25.8 178 M (44:) s
+52.2 178 M
+(    \(printf "~a: ~s~n" *run-file* filename\)) s
+25.8 166 M (45:) s
+52.2 166 M
+(    \(printf "==================================================~n"\)) s
+25.8 154 M (46:) s
+52.2 154 M
+(    \(printf "\(~n"\)) s
+25.8 142 M (47:) s
+52.2 142 M
+(    \(map \(lambda \(line\) \(printf "~s~n" line\)\) program\)) s
+25.8 130 M (48:) s
+52.2 130 M
+(    \(printf "\)~n"\)\)) s
+25.8 118 M (49:) s
+25.8 106 M (50:) s
+52.2 106 M
+(\(define \(main arglist\)) s
+25.8 94 M (51:) s
+52.2 94 M
+(    \(if \(or \(null? arglist\) \(not \(null? \(cdr arglist\)\)\)\)) s
+25.8 82 M (52:) s
+52.2 82 M
+(        \(usage-exit\)) s
+25.8 70 M (53:) s
+52.2 70 M
+(        \(let* \(\(sbprogfile \(car arglist\)\)) s
+25.8 58 M (54:) s
+52.2 58 M
+(               \(program \(readlist-from-inputfile sbprogfile\)\)\)) s
+25.8 46 M (55:) s
+52.2 46 M
+(              \(write-program-by-line sbprogfile program\)\)\)\)) s
+25.8 34 M (56:) s
+25.8 22 M (57:) s
+52.2 22 M
+(\(main \(vector->list \(current-command-line-arguments\)\)\)) s
+_R
+S
+%%Page: (1) 2
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/00-hello-world.sbir) def
+/fdir (.score) def
+/ftail (00-hello-world.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 00-hello-world.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 00-hello-world.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Classic Hello World program.) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: print "Hello, World!") s
+32.4 622 M (7:) s
+52.2 622 M
+(\() s
+32.4 610 M (8:) s
+52.2 610 M
+(\(    1          \)) s
+32.4 598 M (9:) s
+52.2 598 M
+(\(    2          \)) s
+25.8 586 M (10:) s
+52.2 586 M
+(\(    3          \)) s
+25.8 574 M (11:) s
+52.2 574 M
+(\(    4          \)) s
+25.8 562 M (12:) s
+52.2 562 M
+(\(    5          \(print "Hello, World!"\)\)) s
+25.8 550 M (13:) s
+52.2 550 M
+(\)) s
+_R
+S
+%%Page: (1) 3
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/01-1to10.sbir) def
+/fdir (.score) def
+/ftail (01-1to10.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 01-1to10.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 01-1to10.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Print the numbers 1 to 10, one number per line.) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: print  1) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6: print  2) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7: print  3) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8: print  4) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9: print  5) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10: print  6) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11: print  7) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12: print  8) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13: print  9) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14: print 10) s
+25.8 514 M (16:) s
+52.2 514 M
+(\() s
+25.8 502 M (17:) s
+52.2 502 M
+(\(    1          \)) s
+25.8 490 M (18:) s
+52.2 490 M
+(\(    2          \)) s
+25.8 478 M (19:) s
+52.2 478 M
+(\(    3          \)) s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    4          \)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\(    5          \(print 1\)\)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\(    6          \(print 2\)\)) s
+25.8 430 M (23:) s
+52.2 430 M
+(\(    7          \(print 3\)\)) s
+25.8 418 M (24:) s
+52.2 418 M
+(\(    8          \(print 4\)\)) s
+25.8 406 M (25:) s
+52.2 406 M
+(\(    9          \(print 5\)\)) s
+25.8 394 M (26:) s
+52.2 394 M
+(\(   10          \(print 6\)\)) s
+25.8 382 M (27:) s
+52.2 382 M
+(\(   11          \(print 7\)\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\(   12          \(print 8\)\)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\(   13          \(print 9\)\)) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(   14          \(print 10\)\)) s
+25.8 334 M (31:) s
+52.2 334 M
+(\)) s
+_R
+S
+%%Page: (1) 4
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/02-exprs.sbir) def
+/fdir (.score) def
+/ftail (02-exprs.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 02-exprs.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 02-exprs.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # some expressions using print) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: ) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5:         print "1+1      = ", 1+1) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         print "2-2      = ", 2- 2) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7:         print "3*3      = ", 3*3) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8: ) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         print) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10: ) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11:         print "4/9      = ", 4/9) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12:         print "3*4+5*6  = ", 3*4+5*6) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13: ) s
+25.8 526 M (15:) s
+52.2 526 M
+(\() s
+25.8 514 M (16:) s
+52.2 514 M
+(\(    1          \)) s
+25.8 502 M (17:) s
+52.2 502 M
+(\(    2          \)) s
+25.8 490 M (18:) s
+52.2 490 M
+(\(    3          \)) s
+25.8 478 M (19:) s
+52.2 478 M
+(\(    4          \)) s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    5          \(print "1+1      = " \(+ 1 1\)\)\)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\(    6          \(print "2-2      = " \(- 2 2\)\)\)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\(    7          \(print "3*3      = " \(* 3 3\)\)\)) s
+25.8 430 M (23:) s
+52.2 430 M
+(\(    8          \)) s
+25.8 418 M (24:) s
+52.2 418 M
+(\(    9          \(print\)\)) s
+25.8 406 M (25:) s
+52.2 406 M
+(\(   10          \)) s
+25.8 394 M (26:) s
+52.2 394 M
+(\(   11          \(print "4/9      = " \(/ 4 9\)\)\)) s
+25.8 382 M (27:) s
+52.2 382 M
+(\(   12          \(print "3*4+5*6  = " \(+ \(* 3 4\) \(* 5 6\)\)\)\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\(   13          \)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\)) s
+_R
+S
+%%Page: (1) 5
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/10-exprs.sbir) def
+/fdir (.score) def
+/ftail (10-exprs.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/2) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 10-exprs.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 10-exprs.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # All of the following should print something without error mess) s
+5 646 M
+(ages.) s
+32.4 634 M (5:) s
+52.2 634 M
+(;;   4: # This program checks to see if expressions can be interpreted.) s
+32.4 622 M (6:) s
+52.2 622 M
+(;;   5: #) s
+32.4 610 M (7:) s
+52.2 610 M
+(;;   6: ) s
+32.4 598 M (8:) s
+52.2 598 M
+(;;   7:         let pi = 4 * atan\(1\)) s
+32.4 586 M (9:) s
+52.2 586 M
+(;;   8:         let e = exp\(1\)) s
+25.8 574 M (10:) s
+52.2 574 M
+(;;   9: ) s
+25.8 562 M (11:) s
+52.2 562 M
+(;;  10:         print "1+1      = ", 1+1) s
+25.8 550 M (12:) s
+52.2 550 M
+(;;  11:         print "2-2      = ", 2- 2) s
+25.8 538 M (13:) s
+52.2 538 M
+(;;  12:         print "3*3      = ", 3*3) s
+25.8 526 M (14:) s
+52.2 526 M
+(;;  13:         print "4/9      = ", 4/9) s
+25.8 514 M (15:) s
+52.2 514 M
+(;;  14:         print "2^10     = ", 2^10) s
+25.8 502 M (16:) s
+52.2 502 M
+(;;  15:         print "3*4+5*6  = ", 3*4+5*6) s
+25.8 490 M (17:) s
+52.2 490 M
+(;;  16: #) s
+25.8 478 M (18:) s
+52.2 478 M
+(;;  17:         print "log\(10\)  = ", log\(10\)) s
+25.8 466 M (19:) s
+52.2 466 M
+(;;  18:         print "sqrt\(2\)  = ", sqrt\(2\)) s
+25.8 454 M (20:) s
+52.2 454 M
+(;;  19:         print "pi       = ", pi) s
+25.8 442 M (21:) s
+52.2 442 M
+(;;  20:         print "e        = ", e) s
+25.8 430 M (22:) s
+52.2 430 M
+(;;  21: #) s
+25.8 418 M (23:) s
+52.2 418 M
+(;;  22:         print "+1/+0    = ", +1/+0) s
+25.8 406 M (24:) s
+52.2 406 M
+(;;  23:         print "-1/+0    = ", -1/+0) s
+25.8 394 M (25:) s
+52.2 394 M
+(;;  24:         print "+1/-0    = ", +1/-0) s
+25.8 382 M (26:) s
+52.2 382 M
+(;;  25:         print "-1/-0    = ", -1/-0) s
+25.8 370 M (27:) s
+52.2 370 M
+(;;  26:         print "+0/+0    = ", +0/+0) s
+25.8 358 M (28:) s
+52.2 358 M
+(;;  27:         print "-0/-0    = ", -0/-0) s
+25.8 346 M (29:) s
+52.2 346 M
+(;;  28:         print "sqrt\(-1\) = ", sqrt\(-1\)) s
+25.8 334 M (30:) s
+52.2 334 M
+(;;  29:         print "log\(0\)   = ", log\(0\)) s
+25.8 322 M (31:) s
+52.2 322 M
+(;;  30: #) s
+25.8 310 M (32:) s
+52.2 310 M
+(;;  31:         print "6.02e23  = ", 6.02*10^23) s
+25.8 298 M (33:) s
+52.2 298 M
+(;;  32:         print "\(1+2\)/7  = ", \(1+2\)/7) s
+25.8 286 M (34:) s
+52.2 286 M
+(\() s
+25.8 274 M (35:) s
+52.2 274 M
+(\(    1          \)) s
+25.8 262 M (36:) s
+52.2 262 M
+(\(    2          \)) s
+25.8 250 M (37:) s
+52.2 250 M
+(\(    3          \)) s
+25.8 238 M (38:) s
+52.2 238 M
+(\(    4          \)) s
+25.8 226 M (39:) s
+52.2 226 M
+(\(    5          \)) s
+25.8 214 M (40:) s
+52.2 214 M
+(\(    6          \)) s
+25.8 202 M (41:) s
+52.2 202 M
+(\(    7          \(let pi \(* 4 \(atan 1\)\)\)\)) s
+25.8 190 M (42:) s
+52.2 190 M
+(\(    8          \(let e \(exp 1\)\)\)) s
+25.8 178 M (43:) s
+52.2 178 M
+(\(    9          \)) s
+25.8 166 M (44:) s
+52.2 166 M
+(\(   10          \(print "1+1      = " \(+ 1 1\)\)\)) s
+25.8 154 M (45:) s
+52.2 154 M
+(\(   11          \(print "2-2      = " \(- 2 2\)\)\)) s
+25.8 142 M (46:) s
+52.2 142 M
+(\(   12          \(print "3*3      = " \(* 3 3\)\)\)) s
+25.8 130 M (47:) s
+52.2 130 M
+(\(   13          \(print "4/9      = " \(/ 4 9\)\)\)) s
+25.8 118 M (48:) s
+52.2 118 M
+(\(   14          \(print "2^10     = " \(^ 2 10\)\)\)) s
+25.8 106 M (49:) s
+52.2 106 M
+(\(   15          \(print "3*4+5*6  = " \(+ \(* 3 4\) \(* 5 6\)\)\)\)) s
+25.8 94 M (50:) s
+52.2 94 M
+(\(   16          \)) s
+25.8 82 M (51:) s
+52.2 82 M
+(\(   17          \(print "log\(10\)  = " \(log 10\)\)\)) s
+25.8 70 M (52:) s
+52.2 70 M
+(\(   18          \(print "sqrt\(2\)  = " \(sqrt 2\)\)\)) s
+25.8 58 M (53:) s
+52.2 58 M
+(\(   19          \(print "pi       = " pi\)\)) s
+25.8 46 M (54:) s
+52.2 46 M
+(\(   20          \(print "e        = " e\)\)) s
+25.8 34 M (55:) s
+52.2 34 M
+(\(   21          \)) s
+25.8 22 M (56:) s
+52.2 22 M
+(\(   22          \(print "+1/+0    = " \(/ \(+ 1\) \(+ 0\)\)\)\)) s
+25.8 10 M (57:) s
+52.2 10 M
+(\(   23          \(print "-1/+0    = " \(/ \(- 1\) \(+ 0\)\)\)\)) s
+_R
+S
+%%Page: (2) 6
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 2 def
+/fname (.score/10-exprs.sbir) def
+/fdir (.score) def
+/ftail (10-exprs.sbir) def
+% User defined strings:
+/pagenumstr (2) def
+/moddatestr (09/23/16) def
+/pagecountstr (/2) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+25.8 694 M (58:) s
+52.2 694 M
+(\(   24          \(print "+1/-0    = " \(/ \(+ 1\) \(- 0\)\)\)\)) s
+25.8 682 M (59:) s
+52.2 682 M
+(\(   25          \(print "-1/-0    = " \(/ \(- 1\) \(- 0\)\)\)\)) s
+25.8 670 M (60:) s
+52.2 670 M
+(\(   26          \(print "+0/+0    = " \(/ \(+ 0\) \(+ 0\)\)\)\)) s
+25.8 658 M (61:) s
+52.2 658 M
+(\(   27          \(print "-0/-0    = " \(/ \(- 0\) \(- 0\)\)\)\)) s
+25.8 646 M (62:) s
+52.2 646 M
+(\(   28          \(print "sqrt\(-1\) = " \(sqrt \(- 1\)\)\)\)) s
+25.8 634 M (63:) s
+52.2 634 M
+(\(   29          \(print "log\(0\)   = " \(log 0\)\)\)) s
+25.8 622 M (64:) s
+52.2 622 M
+(\(   30          \)) s
+25.8 610 M (65:) s
+52.2 610 M
+(\(   31          \(print "6.02e23  = " \(* 6.02 \(^ 10 23\)\)\)\)) s
+25.8 598 M (66:) s
+52.2 598 M
+(\(   32          \(print "\(1+2\)/7  = " \(/ \(+ 1 2\) 7\)\)\)) s
+25.8 586 M (67:) s
+52.2 586 M
+(\)) s
+_R
+S
+%%Page: (1) 7
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/11-let.sbir) def
+/fdir (.score) def
+/ftail (11-let.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 11-let.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 11-let.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # test let) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5:         let i = 1) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         let j = i + 3) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7:         let k = 8 * i + 9 / j) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         print "i=", i) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         print "j=", j) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10:         print "k=", k) s
+25.8 562 M (12:) s
+52.2 562 M
+(\() s
+25.8 550 M (13:) s
+52.2 550 M
+(\(    1          \)) s
+25.8 538 M (14:) s
+52.2 538 M
+(\(    2          \)) s
+25.8 526 M (15:) s
+52.2 526 M
+(\(    3          \)) s
+25.8 514 M (16:) s
+52.2 514 M
+(\(    4          \)) s
+25.8 502 M (17:) s
+52.2 502 M
+(\(    5          \(let i 1\)\)) s
+25.8 490 M (18:) s
+52.2 490 M
+(\(    6          \(let j \(+ i 3\)\)\)) s
+25.8 478 M (19:) s
+52.2 478 M
+(\(    7          \(let k \(+ \(* 8 i\) \(/ 9 j\)\)\)\)) s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    8          \(print "i=" i\)\)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\(    9          \(print "j=" j\)\)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\(   10          \(print "k=" k\)\)) s
+25.8 430 M (23:) s
+52.2 430 M
+(\)) s
+_R
+S
+%%Page: (1) 8
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/12-let.sbir) def
+/fdir (.score) def
+/ftail (12-let.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 12-let.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 12-let.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: ) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Simple let without expressions.) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: ) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5:         let i = 6) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         print i) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7:         dim a\(10\)) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         let a\(i\) = 9) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         print a\(i\)) s
+25.8 574 M (11:) s
+52.2 574 M
+(\() s
+25.8 562 M (12:) s
+52.2 562 M
+(\(    1          \)) s
+25.8 550 M (13:) s
+52.2 550 M
+(\(    2          \)) s
+25.8 538 M (14:) s
+52.2 538 M
+(\(    3          \)) s
+25.8 526 M (15:) s
+52.2 526 M
+(\(    4          \)) s
+25.8 514 M (16:) s
+52.2 514 M
+(\(    5          \(let i 6\)\)) s
+25.8 502 M (17:) s
+52.2 502 M
+(\(    6          \(print i\)\)) s
+25.8 490 M (18:) s
+52.2 490 M
+(\(    7          \(dim \(a 10\)\)\)) s
+25.8 478 M (19:) s
+52.2 478 M
+(\(    8          \(let \(a i\) 9\)\)) s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    9          \(print \(a i\)\)\)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\)) s
+_R
+S
+%%Page: (1) 9
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/20-goto.sbir) def
+/fdir (.score) def
+/ftail (20-goto.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 20-goto.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 20-goto.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3:         goto zero) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: four:   print "four") s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5:         goto done) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6: one:    print "one") s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7:         goto two) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8: three:  print "three") s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         goto four) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10: two:    print "two") s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11:         goto three) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12: zero:   print "zero") s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13:         goto one) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14: done:) s
+25.8 514 M (16:) s
+52.2 514 M
+(\() s
+25.8 502 M (17:) s
+52.2 502 M
+(\(    1          \)) s
+25.8 490 M (18:) s
+52.2 490 M
+(\(    2          \)) s
+25.8 478 M (19:) s
+52.2 478 M
+(\(    3          \(goto zero\)\)) s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    4 four     \(print "four"\)\)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\(    5          \(goto done\)\)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\(    6 one      \(print "one"\)\)) s
+25.8 430 M (23:) s
+52.2 430 M
+(\(    7          \(goto two\)\)) s
+25.8 418 M (24:) s
+52.2 418 M
+(\(    8 three    \(print "three"\)\)) s
+25.8 406 M (25:) s
+52.2 406 M
+(\(    9          \(goto four\)\)) s
+25.8 394 M (26:) s
+52.2 394 M
+(\(   10 two      \(print "two"\)\)) s
+25.8 382 M (27:) s
+52.2 382 M
+(\(   11          \(goto three\)\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\(   12 zero     \(print "zero"\)\)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\(   13          \(goto one\)\)) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(   14 done     \)) s
+25.8 334 M (31:) s
+52.2 334 M
+(\)) s
+_R
+S
+%%Page: (1) 10
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/21-let-if.sbir) def
+/fdir (.score) def
+/ftail (21-let-if.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 21-let-if.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 21-let-if.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3:         let i = 1) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: loop:   print i) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5:         let i = i + 1) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         if i <= 10 goto loop) s
+32.4 610 M (8:) s
+52.2 610 M
+(\() s
+32.4 598 M (9:) s
+52.2 598 M
+(\(    1          \)) s
+25.8 586 M (10:) s
+52.2 586 M
+(\(    2          \)) s
+25.8 574 M (11:) s
+52.2 574 M
+(\(    3          \(let i 1\)\)) s
+25.8 562 M (12:) s
+52.2 562 M
+(\(    4 loop     \(print i\)\)) s
+25.8 550 M (13:) s
+52.2 550 M
+(\(    5          \(let i \(+ i 1\)\)\)) s
+25.8 538 M (14:) s
+52.2 538 M
+(\(    6          \(if \(<= i 10\) loop\)\)) s
+25.8 526 M (15:) s
+52.2 526 M
+(\)) s
+_R
+S
+%%Page: (1) 11
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/22-fibonacci.sbir) def
+/fdir (.score) def
+/ftail (22-fibonacci.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 22-fibonacci.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 22-fibonacci.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Print out all Fibonacci numbers up to max.) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5:         let max = 10^6) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6: ) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7:         let fib0 = 0) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         let fib1 = 1) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         print "fib\(", 0, "\)=", fib0) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10:         print "fib\(", 1, "\)=", fib1) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11:         let i=1) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12: loop:   let fib = fib0 + fib1) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13:         let i=i+1) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14:         print "fib\(", i, "\)=", fib) s
+25.8 514 M (16:) s
+52.2 514 M
+(;;  15:         let fib0 = fib1) s
+25.8 502 M (17:) s
+52.2 502 M
+(;;  16:         let fib1 = fib) s
+25.8 490 M (18:) s
+52.2 490 M
+(;;  17:         if fib <= max goto loop) s
+25.8 478 M (19:) s
+52.2 478 M
+(\() s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    1          \)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\(    2          \)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\(    3          \)) s
+25.8 430 M (23:) s
+52.2 430 M
+(\(    4          \)) s
+25.8 418 M (24:) s
+52.2 418 M
+(\(    5          \(let max \(^ 10 6\)\)\)) s
+25.8 406 M (25:) s
+52.2 406 M
+(\(    6          \)) s
+25.8 394 M (26:) s
+52.2 394 M
+(\(    7          \(let fib0 0\)\)) s
+25.8 382 M (27:) s
+52.2 382 M
+(\(    8          \(let fib1 1\)\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\(    9          \(print "fib\(" 0 "\)=" fib0\)\)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\(   10          \(print "fib\(" 1 "\)=" fib1\)\)) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(   11          \(let i 1\)\)) s
+25.8 334 M (31:) s
+52.2 334 M
+(\(   12 loop     \(let fib \(+ fib0 fib1\)\)\)) s
+25.8 322 M (32:) s
+52.2 322 M
+(\(   13          \(let i \(+ i 1\)\)\)) s
+25.8 310 M (33:) s
+52.2 310 M
+(\(   14          \(print "fib\(" i "\)=" fib\)\)) s
+25.8 298 M (34:) s
+52.2 298 M
+(\(   15          \(let fib0 fib1\)\)) s
+25.8 286 M (35:) s
+52.2 286 M
+(\(   16          \(let fib1 fib\)\)) s
+25.8 274 M (36:) s
+52.2 274 M
+(\(   17          \(if \(<= fib max\) loop\)\)) s
+25.8 262 M (37:) s
+52.2 262 M
+(\)) s
+_R
+S
+%%Page: (1) 12
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/25-pi-e-fns.sbir) def
+/fdir (.score) def
+/ftail (25-pi-e-fns.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 25-pi-e-fns.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 25-pi-e-fns.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: ) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: print pi, e) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: let pi = 4 * atan\(1\)) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: let e = exp\(1\)) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6: print "pi = ", pi) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7: print "e = ", e) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8: ) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9: print "sqrt \( pi \) = ", sqrt \( pi \)) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10: print "exp  \( pi \) = ", exp  \( pi \)) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11: print "log  \( pi \) = ", log  \( pi \)) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12: print "sin  \( pi \) = ", sin  \( pi \)) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13: print "cos  \( pi \) = ", cos  \( pi \)) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14: print "tan  \( pi \) = ", tan  \( pi \)) s
+25.8 514 M (16:) s
+52.2 514 M
+(;;  15: print "acos \( pi \) = ", acos \( pi \)) s
+25.8 502 M (17:) s
+52.2 502 M
+(;;  16: print "asin \( pi \) = ", asin \( pi \)) s
+25.8 490 M (18:) s
+52.2 490 M
+(;;  17: print "atan \( pi \) = ", atan \( pi \)) s
+25.8 478 M (19:) s
+52.2 478 M
+(;;  18: print "abs  \( pi \) = ", abs  \( pi \)) s
+25.8 466 M (20:) s
+52.2 466 M
+(;;  19: print "ceil \( pi \) = ", ceil \( pi \)) s
+25.8 454 M (21:) s
+52.2 454 M
+(;;  20: print "floor\( pi \) = ", floor\( pi \)) s
+25.8 442 M (22:) s
+52.2 442 M
+(;;  21: print "round\( pi \) = ", round\( pi \)) s
+25.8 430 M (23:) s
+52.2 430 M
+(;;  22: ) s
+25.8 418 M (24:) s
+52.2 418 M
+(\() s
+25.8 406 M (25:) s
+52.2 406 M
+(\(    1          \)) s
+25.8 394 M (26:) s
+52.2 394 M
+(\(    2          \)) s
+25.8 382 M (27:) s
+52.2 382 M
+(\(    3          \(print pi e\)\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\(    4          \(let pi \(* 4 \(atan 1\)\)\)\)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\(    5          \(let e \(exp 1\)\)\)) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(    6          \(print "pi = " pi\)\)) s
+25.8 334 M (31:) s
+52.2 334 M
+(\(    7          \(print "e = " e\)\)) s
+25.8 322 M (32:) s
+52.2 322 M
+(\(    8          \)) s
+25.8 310 M (33:) s
+52.2 310 M
+(\(    9          \(print "sqrt \( pi \) = " \(sqrt pi\)\)\)) s
+25.8 298 M (34:) s
+52.2 298 M
+(\(   10          \(print "exp  \( pi \) = " \(exp pi\)\)\)) s
+25.8 286 M (35:) s
+52.2 286 M
+(\(   11          \(print "log  \( pi \) = " \(log pi\)\)\)) s
+25.8 274 M (36:) s
+52.2 274 M
+(\(   12          \(print "sin  \( pi \) = " \(sin pi\)\)\)) s
+25.8 262 M (37:) s
+52.2 262 M
+(\(   13          \(print "cos  \( pi \) = " \(cos pi\)\)\)) s
+25.8 250 M (38:) s
+52.2 250 M
+(\(   14          \(print "tan  \( pi \) = " \(tan pi\)\)\)) s
+25.8 238 M (39:) s
+52.2 238 M
+(\(   15          \(print "acos \( pi \) = " \(acos pi\)\)\)) s
+25.8 226 M (40:) s
+52.2 226 M
+(\(   16          \(print "asin \( pi \) = " \(asin pi\)\)\)) s
+25.8 214 M (41:) s
+52.2 214 M
+(\(   17          \(print "atan \( pi \) = " \(atan pi\)\)\)) s
+25.8 202 M (42:) s
+52.2 202 M
+(\(   18          \(print "abs  \( pi \) = " \(abs pi\)\)\)) s
+25.8 190 M (43:) s
+52.2 190 M
+(\(   19          \(print "ceil \( pi \) = " \(ceil pi\)\)\)) s
+25.8 178 M (44:) s
+52.2 178 M
+(\(   20          \(print "floor\( pi \) = " \(floor pi\)\)\)) s
+25.8 166 M (45:) s
+52.2 166 M
+(\(   21          \(print "round\( pi \) = " \(round pi\)\)\)) s
+25.8 154 M (46:) s
+52.2 154 M
+(\(   22          \)) s
+25.8 142 M (47:) s
+52.2 142 M
+(\)) s
+_R
+S
+%%Page: (1) 13
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/30-input-pi.sbir) def
+/fdir (.score) def
+/ftail (30-input-pi.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 30-input-pi.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 30-input-pi.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: ) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4:         let pi = 4 * atan\(1\)) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: ) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         print "RE: House Bill 246, Indiana State Legislature, 18) s
+5 610 M
+(97") s
+32.4 598 M (8:) s
+52.2 598 M
+(;;   7:         print "Enter 1 if it has passed and 0 if not.") s
+32.4 586 M (9:) s
+52.2 586 M
+(;;   8: ) s
+25.8 574 M (10:) s
+52.2 574 M
+(;;   9:         input tennessee) s
+25.8 562 M (11:) s
+52.2 562 M
+(;;  10:         if tennessee = 0 goto prt) s
+25.8 550 M (12:) s
+52.2 550 M
+(;;  11:         let pi = 3 ) s
+25.8 538 M (13:) s
+52.2 538 M
+(;;  12: prt:    print "pi = ", pi) s
+25.8 526 M (14:) s
+52.2 526 M
+(;;  13: ) s
+25.8 514 M (15:) s
+52.2 514 M
+(;;  14: # Print some random junk to exercise the interpreter.) s
+25.8 502 M (16:) s
+52.2 502 M
+(;;  15: ) s
+25.8 490 M (17:) s
+52.2 490 M
+(;;  16:         print) s
+25.8 478 M (18:) s
+52.2 478 M
+(;;  17:         print) s
+25.8 466 M (19:) s
+52.2 466 M
+(;;  18:         print .333333333333333333333333333333333333333333) s
+25.8 454 M (20:) s
+52.2 454 M
+(;;  19:         let avogadro = 6.02e23) s
+25.8 442 M (21:) s
+52.2 442 M
+(;;  20:         print avogadro) s
+25.8 430 M (22:) s
+52.2 430 M
+(\() s
+25.8 418 M (23:) s
+52.2 418 M
+(\(    1          \)) s
+25.8 406 M (24:) s
+52.2 406 M
+(\(    2          \)) s
+25.8 394 M (25:) s
+52.2 394 M
+(\(    3          \)) s
+25.8 382 M (26:) s
+52.2 382 M
+(\(    4          \(let pi \(* 4 \(atan 1\)\)\)\)) s
+25.8 370 M (27:) s
+52.2 370 M
+(\(    5          \)) s
+25.8 358 M (28:) s
+52.2 358 M
+(\(    6          \(print "RE: House Bill 246, Indiana State Legislature, 1) s
+5 346 M
+(897"\)\)) s
+25.8 334 M (29:) s
+52.2 334 M
+(\(    7          \(print "Enter 1 if it has passed and 0 if not."\)\)) s
+25.8 322 M (30:) s
+52.2 322 M
+(\(    8          \)) s
+25.8 310 M (31:) s
+52.2 310 M
+(\(    9          \(input tennessee\)\)) s
+25.8 298 M (32:) s
+52.2 298 M
+(\(   10          \(if \(= tennessee 0\) prt\)\)) s
+25.8 286 M (33:) s
+52.2 286 M
+(\(   11          \(let pi 3\)\)) s
+25.8 274 M (34:) s
+52.2 274 M
+(\(   12 prt      \(print "pi = " pi\)\)) s
+25.8 262 M (35:) s
+52.2 262 M
+(\(   13          \)) s
+25.8 250 M (36:) s
+52.2 250 M
+(\(   14          \)) s
+25.8 238 M (37:) s
+52.2 238 M
+(\(   15          \)) s
+25.8 226 M (38:) s
+52.2 226 M
+(\(   16          \(print\)\)) s
+25.8 214 M (39:) s
+52.2 214 M
+(\(   17          \(print\)\)) s
+25.8 202 M (40:) s
+52.2 202 M
+(\(   18          \(print 0.333333333333333\)\)) s
+25.8 190 M (41:) s
+52.2 190 M
+(\(   19          \(let avogadro 6.02e+23\)\)) s
+25.8 178 M (42:) s
+52.2 178 M
+(\(   20          \(print avogadro\)\)) s
+25.8 166 M (43:) s
+52.2 166 M
+(\)) s
+_R
+S
+%%Page: (1) 14
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/31-big-o-.sbir) def
+/fdir (.score) def
+/ftail (31-big-o-.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 31-big-o-.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 31-big-o-.sbir,v 1.2 2014-10-29 14:27:31-07 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: ) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Given the value of N1, is the following program guaranteed) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: # to terminate?  If so, what is the big-O of time for terminatio) s
+5 634 M
+(n?) s
+32.4 622 M (6:) s
+52.2 622 M
+(;;   5: # http://en.wikipedia.org/wiki/Collatz_conjecture) s
+32.4 610 M (7:) s
+52.2 610 M
+(;;   6: ) s
+32.4 598 M (8:) s
+52.2 598 M
+(;;   7: # Big-O) s
+32.4 586 M (9:) s
+52.2 586 M
+(;;   8: # C:    while\(n>1\)n=n&1?3*n+1:n/2;) s
+25.8 574 M (10:) s
+52.2 574 M
+(;;   9: # APL:  L:->Lxi1<N<-\(\(|_N/2\),3xN+1\)[1=2|N]) s
+25.8 562 M (11:) s
+52.2 562 M
+(;;  10: ) s
+25.8 550 M (12:) s
+52.2 550 M
+(;;  11:         input N1) s
+25.8 538 M (13:) s
+52.2 538 M
+(;;  12:         let i = 0) s
+25.8 526 M (14:) s
+52.2 526 M
+(;;  13:         let n = N1) s
+25.8 514 M (15:) s
+52.2 514 M
+(;;  14: while:  if n <= 1 goto done) s
+25.8 502 M (16:) s
+52.2 502 M
+(;;  15:         let i = i + 1) s
+25.8 490 M (17:) s
+52.2 490 M
+(;;  16:         let f = floor\( n / 2 \)) s
+25.8 478 M (18:) s
+52.2 478 M
+(;;  17:         if n <> f * 2 goto odd) s
+25.8 466 M (19:) s
+52.2 466 M
+(;;  18:         let n = f) s
+25.8 454 M (20:) s
+52.2 454 M
+(;;  19:         goto while) s
+25.8 442 M (21:) s
+52.2 442 M
+(;;  20: odd:    let n = n * 3 + 1) s
+25.8 430 M (22:) s
+52.2 430 M
+(;;  21:         goto while) s
+25.8 418 M (23:) s
+52.2 418 M
+(;;  22: done:   print N1, " loops ", i, " times.") s
+25.8 406 M (24:) s
+52.2 406 M
+(\() s
+25.8 394 M (25:) s
+52.2 394 M
+(\(    1          \)) s
+25.8 382 M (26:) s
+52.2 382 M
+(\(    2          \)) s
+25.8 370 M (27:) s
+52.2 370 M
+(\(    3          \)) s
+25.8 358 M (28:) s
+52.2 358 M
+(\(    4          \)) s
+25.8 346 M (29:) s
+52.2 346 M
+(\(    5          \)) s
+25.8 334 M (30:) s
+52.2 334 M
+(\(    6          \)) s
+25.8 322 M (31:) s
+52.2 322 M
+(\(    7          \)) s
+25.8 310 M (32:) s
+52.2 310 M
+(\(    8          \)) s
+25.8 298 M (33:) s
+52.2 298 M
+(\(    9          \)) s
+25.8 286 M (34:) s
+52.2 286 M
+(\(   10          \)) s
+25.8 274 M (35:) s
+52.2 274 M
+(\(   11          \(input N1\)\)) s
+25.8 262 M (36:) s
+52.2 262 M
+(\(   12          \(let i 0\)\)) s
+25.8 250 M (37:) s
+52.2 250 M
+(\(   13          \(let n N1\)\)) s
+25.8 238 M (38:) s
+52.2 238 M
+(\(   14 while    \(if \(<= n 1\) done\)\)) s
+25.8 226 M (39:) s
+52.2 226 M
+(\(   15          \(let i \(+ i 1\)\)\)) s
+25.8 214 M (40:) s
+52.2 214 M
+(\(   16          \(let f \(floor \(/ n 2\)\)\)\)) s
+25.8 202 M (41:) s
+52.2 202 M
+(\(   17          \(if \(<> n \(* f 2\)\) odd\)\)) s
+25.8 190 M (42:) s
+52.2 190 M
+(\(   18          \(let n f\)\)) s
+25.8 178 M (43:) s
+52.2 178 M
+(\(   19          \(goto while\)\)) s
+25.8 166 M (44:) s
+52.2 166 M
+(\(   20 odd      \(let n \(+ \(* n 3\) 1\)\)\)) s
+25.8 154 M (45:) s
+52.2 154 M
+(\(   21          \(goto while\)\)) s
+25.8 142 M (46:) s
+52.2 142 M
+(\(   22 done     \(print N1 " loops " i " times."\)\)) s
+25.8 130 M (47:) s
+52.2 130 M
+(\)) s
+_R
+S
+%%Page: (1) 15
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/32-factorial.sbir) def
+/fdir (.score) def
+/ftail (32-factorial.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/2) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 32-factorial.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 32-factorial.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Factorial.) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: read:   print "Factorial of:") s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         input x) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7:         # check the variable eof for a valid value or not.) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         if inputcount = -1 goto stop) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         if inputcount = 0 goto error) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10:         if x < 0 goto error) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11:         goto letfac) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12: error:  print "Invalid input.") s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13:         goto read) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14: ) s
+25.8 514 M (16:) s
+52.2 514 M
+(;;  15: #) s
+25.8 502 M (17:) s
+52.2 502 M
+(;;  16: #) s
+25.8 490 M (18:) s
+52.2 490 M
+(;;  17: #) s
+25.8 478 M (19:) s
+52.2 478 M
+(;;  18: ) s
+25.8 466 M (20:) s
+52.2 466 M
+(;;  19: letfac: let factorial = 1) s
+25.8 454 M (21:) s
+52.2 454 M
+(;;  20:         let itor = 2) s
+25.8 442 M (22:) s
+52.2 442 M
+(;;  21: loop:   if itor > x goto prt) s
+25.8 430 M (23:) s
+52.2 430 M
+(;;  22:         let factorial = factorial * itor) s
+25.8 418 M (24:) s
+52.2 418 M
+(;;  23:         let itor = itor + 1) s
+25.8 406 M (25:) s
+52.2 406 M
+(;;  24:         goto loop) s
+25.8 394 M (26:) s
+52.2 394 M
+(;;  25: prt:    print "factorial\(", x, "\) = ", factorial) s
+25.8 382 M (27:) s
+52.2 382 M
+(;;  26:         goto read) s
+25.8 370 M (28:) s
+52.2 370 M
+(;;  27: ) s
+25.8 358 M (29:) s
+52.2 358 M
+(;;  28: #) s
+25.8 346 M (30:) s
+52.2 346 M
+(;;  29: # end of file.) s
+25.8 334 M (31:) s
+52.2 334 M
+(;;  30: #) s
+25.8 322 M (32:) s
+52.2 322 M
+(;;  31: ) s
+25.8 310 M (33:) s
+52.2 310 M
+(;;  32: stop:   print "Program stopping.") s
+25.8 298 M (34:) s
+52.2 298 M
+(\() s
+25.8 286 M (35:) s
+52.2 286 M
+(\(    1          \)) s
+25.8 274 M (36:) s
+52.2 274 M
+(\(    2          \)) s
+25.8 262 M (37:) s
+52.2 262 M
+(\(    3          \)) s
+25.8 250 M (38:) s
+52.2 250 M
+(\(    4          \)) s
+25.8 238 M (39:) s
+52.2 238 M
+(\(    5 read     \(print "Factorial of:"\)\)) s
+25.8 226 M (40:) s
+52.2 226 M
+(\(    6          \(input x\)\)) s
+25.8 214 M (41:) s
+52.2 214 M
+(\(    7          \)) s
+25.8 202 M (42:) s
+52.2 202 M
+(\(    8          \(if \(= inputcount \(- 1\)\) stop\)\)) s
+25.8 190 M (43:) s
+52.2 190 M
+(\(    9          \(if \(= inputcount 0\) error\)\)) s
+25.8 178 M (44:) s
+52.2 178 M
+(\(   10          \(if \(< x 0\) error\)\)) s
+25.8 166 M (45:) s
+52.2 166 M
+(\(   11          \(goto letfac\)\)) s
+25.8 154 M (46:) s
+52.2 154 M
+(\(   12 error    \(print "Invalid input."\)\)) s
+25.8 142 M (47:) s
+52.2 142 M
+(\(   13          \(goto read\)\)) s
+25.8 130 M (48:) s
+52.2 130 M
+(\(   14          \)) s
+25.8 118 M (49:) s
+52.2 118 M
+(\(   15          \)) s
+25.8 106 M (50:) s
+52.2 106 M
+(\(   16          \)) s
+25.8 94 M (51:) s
+52.2 94 M
+(\(   17          \)) s
+25.8 82 M (52:) s
+52.2 82 M
+(\(   18          \)) s
+25.8 70 M (53:) s
+52.2 70 M
+(\(   19 letfac   \(let factorial 1\)\)) s
+25.8 58 M (54:) s
+52.2 58 M
+(\(   20          \(let itor 2\)\)) s
+25.8 46 M (55:) s
+52.2 46 M
+(\(   21 loop     \(if \(> itor x\) prt\)\)) s
+25.8 34 M (56:) s
+52.2 34 M
+(\(   22          \(let factorial \(* factorial itor\)\)\)) s
+25.8 22 M (57:) s
+52.2 22 M
+(\(   23          \(let itor \(+ itor 1\)\)\)) s
+25.8 10 M (58:) s
+52.2 10 M
+(\(   24          \(goto loop\)\)) s
+_R
+S
+%%Page: (2) 16
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 2 def
+/fname (.score/32-factorial.sbir) def
+/fdir (.score) def
+/ftail (32-factorial.sbir) def
+% User defined strings:
+/pagenumstr (2) def
+/moddatestr (09/23/16) def
+/pagecountstr (/2) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+25.8 694 M (59:) s
+52.2 694 M
+(\(   25 prt      \(print "factorial\(" x "\) = " factorial\)\)) s
+25.8 682 M (60:) s
+52.2 682 M
+(\(   26          \(goto read\)\)) s
+25.8 670 M (61:) s
+52.2 670 M
+(\(   27          \)) s
+25.8 658 M (62:) s
+52.2 658 M
+(\(   28          \)) s
+25.8 646 M (63:) s
+52.2 646 M
+(\(   29          \)) s
+25.8 634 M (64:) s
+52.2 634 M
+(\(   30          \)) s
+25.8 622 M (65:) s
+52.2 622 M
+(\(   31          \)) s
+25.8 610 M (66:) s
+52.2 610 M
+(\(   32 stop     \(print "Program stopping."\)\)) s
+25.8 598 M (67:) s
+52.2 598 M
+(\)) s
+_R
+S
+%%Page: (1) 17
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/33-quadratic.sbir) def
+/fdir (.score) def
+/ftail (33-quadratic.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 33-quadratic.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 33-quadratic.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # Quadratic equation solver) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: ) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6:         print "Quadratic Equation solver.") s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7: loop:   print "Input a, b, c") s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         input a, b, c) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         if inputcount <> 3 goto stop) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10:         let q = sqrt\( b ^ 2 - 4 * a * c \)) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11:         print "Equation: ", a, " * x ^ 2 +", b, " * x +", c) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12:         print "root1 = ", \( - b + q \) / \( 2 * a \)) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13:         print "root2 = ", \( - b - q \) / \( 2 * a \)) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14:         goto loop) s
+25.8 514 M (16:) s
+52.2 514 M
+(;;  15: stop:) s
+25.8 502 M (17:) s
+52.2 502 M
+(\() s
+25.8 490 M (18:) s
+52.2 490 M
+(\(    1          \)) s
+25.8 478 M (19:) s
+52.2 478 M
+(\(    2          \)) s
+25.8 466 M (20:) s
+52.2 466 M
+(\(    3          \)) s
+25.8 454 M (21:) s
+52.2 454 M
+(\(    4          \)) s
+25.8 442 M (22:) s
+52.2 442 M
+(\(    5          \)) s
+25.8 430 M (23:) s
+52.2 430 M
+(\(    6          \(print "Quadratic Equation solver."\)\)) s
+25.8 418 M (24:) s
+52.2 418 M
+(\(    7 loop     \(print "Input a, b, c"\)\)) s
+25.8 406 M (25:) s
+52.2 406 M
+(\(    8          \(input a b c\)\)) s
+25.8 394 M (26:) s
+52.2 394 M
+(\(    9          \(if \(<> inputcount 3\) stop\)\)) s
+25.8 382 M (27:) s
+52.2 382 M
+(\(   10          \(let q \(sqrt \(- \(^ b 2\) \(* \(* 4 a\) c\)\)\)\)\)) s
+25.8 370 M (28:) s
+52.2 370 M
+(\(   11          \(print "Equation: " a " * x ^ 2 +" b " * x +" c\)\)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\(   12          \(print "root1 = " \(/ \(+ \(- b\) q\) \(* 2 a\)\)\)\)) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(   13          \(print "root2 = " \(/ \(- \(- b\) q\) \(* 2 a\)\)\)\)) s
+25.8 334 M (31:) s
+52.2 334 M
+(\(   14          \(goto loop\)\)) s
+25.8 322 M (32:) s
+52.2 322 M
+(\(   15 stop     \)) s
+25.8 310 M (33:) s
+52.2 310 M
+(\)) s
+_R
+S
+%%Page: (1) 18
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/40-sort-array.sbir) def
+/fdir (.score) def
+/ftail (40-sort-array.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/2) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 40-sort-array.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 40-sort-array.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3: # sort numbers) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4: #) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: # Input is a sequence of numbers ending with end of file.) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6: # User is assumed to have not more than 100 numbers.) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7: #) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         let size = 100) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9:         dim a\( size \)) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10:         let max = 0) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11: read:   input x) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12:         if inputcount = -1 goto eof) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13:         if inputcount < 1 goto error) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14:         let max = max + 1) s
+25.8 514 M (16:) s
+52.2 514 M
+(;;  15:         let a\( max \) = x) s
+25.8 502 M (17:) s
+52.2 502 M
+(;;  16:         if max < size goto read) s
+25.8 490 M (18:) s
+52.2 490 M
+(;;  17: eof:) s
+25.8 478 M (19:) s
+52.2 478 M
+(;;  18:         print "") s
+25.8 466 M (20:) s
+52.2 466 M
+(;;  19:         print "unsorted") s
+25.8 454 M (21:) s
+52.2 454 M
+(;;  20:         let i = 1) s
+25.8 442 M (22:) s
+52.2 442 M
+(;;  21: prtlp:  print "a\(", i, "\)=", a\( i \)) s
+25.8 430 M (23:) s
+52.2 430 M
+(;;  22:         let i = i + 1) s
+25.8 418 M (24:) s
+52.2 418 M
+(;;  23:         if i <= max goto prtlp) s
+25.8 406 M (25:) s
+52.2 406 M
+(;;  24:         let i = max) s
+25.8 394 M (26:) s
+52.2 394 M
+(;;  25: outer:  let j = 1 ) s
+25.8 382 M (27:) s
+52.2 382 M
+(;;  26: inner:  if a\(j\) <= a\(j + 1 \) goto noswap) s
+25.8 370 M (28:) s
+52.2 370 M
+(;;  27:         let t = a\(j\)) s
+25.8 358 M (29:) s
+52.2 358 M
+(;;  28:         let a\(j\) = a\(j+1\)) s
+25.8 346 M (30:) s
+52.2 346 M
+(;;  29:         let a\(j+1\)=t) s
+25.8 334 M (31:) s
+52.2 334 M
+(;;  30: noswap:) s
+25.8 322 M (32:) s
+52.2 322 M
+(;;  31:         let j = j + 1) s
+25.8 310 M (33:) s
+52.2 310 M
+(;;  32:         if j <= i - 1 goto inner) s
+25.8 298 M (34:) s
+52.2 298 M
+(;;  33:         let i = i - 1) s
+25.8 286 M (35:) s
+52.2 286 M
+(;;  34:         if i >= 2 goto outer) s
+25.8 274 M (36:) s
+52.2 274 M
+(;;  35:         print "") s
+25.8 262 M (37:) s
+52.2 262 M
+(;;  36:         print "sorted") s
+25.8 250 M (38:) s
+52.2 250 M
+(;;  37:         let i = 1) s
+25.8 238 M (39:) s
+52.2 238 M
+(;;  38: sortlp: print "a\(", i, "\)=", a\( i \)) s
+25.8 226 M (40:) s
+52.2 226 M
+(;;  39:         let i = i + 1) s
+25.8 214 M (41:) s
+52.2 214 M
+(;;  40:         if i <= max goto sortlp) s
+25.8 202 M (42:) s
+52.2 202 M
+(;;  41:         goto stop) s
+25.8 190 M (43:) s
+52.2 190 M
+(;;  42: error:  print "Invalid input") s
+25.8 178 M (44:) s
+52.2 178 M
+(;;  43: stop:) s
+25.8 166 M (45:) s
+52.2 166 M
+(\() s
+25.8 154 M (46:) s
+52.2 154 M
+(\(    1          \)) s
+25.8 142 M (47:) s
+52.2 142 M
+(\(    2          \)) s
+25.8 130 M (48:) s
+52.2 130 M
+(\(    3          \)) s
+25.8 118 M (49:) s
+52.2 118 M
+(\(    4          \)) s
+25.8 106 M (50:) s
+52.2 106 M
+(\(    5          \)) s
+25.8 94 M (51:) s
+52.2 94 M
+(\(    6          \)) s
+25.8 82 M (52:) s
+52.2 82 M
+(\(    7          \)) s
+25.8 70 M (53:) s
+52.2 70 M
+(\(    8          \(let size 100\)\)) s
+25.8 58 M (54:) s
+52.2 58 M
+(\(    9          \(dim \(a size\)\)\)) s
+25.8 46 M (55:) s
+52.2 46 M
+(\(   10          \(let max 0\)\)) s
+25.8 34 M (56:) s
+52.2 34 M
+(\(   11 read     \(input x\)\)) s
+25.8 22 M (57:) s
+52.2 22 M
+(\(   12          \(if \(= inputcount \(- 1\)\) eof\)\)) s
+25.8 10 M (58:) s
+52.2 10 M
+(\(   13          \(if \(< inputcount 1\) error\)\)) s
+_R
+S
+%%Page: (2) 19
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 2 def
+/fname (.score/40-sort-array.sbir) def
+/fdir (.score) def
+/ftail (40-sort-array.sbir) def
+% User defined strings:
+/pagenumstr (2) def
+/moddatestr (09/23/16) def
+/pagecountstr (/2) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+25.8 694 M (59:) s
+52.2 694 M
+(\(   14          \(let max \(+ max 1\)\)\)) s
+25.8 682 M (60:) s
+52.2 682 M
+(\(   15          \(let \(a max\) x\)\)) s
+25.8 670 M (61:) s
+52.2 670 M
+(\(   16          \(if \(< max size\) read\)\)) s
+25.8 658 M (62:) s
+52.2 658 M
+(\(   17 eof      \)) s
+25.8 646 M (63:) s
+52.2 646 M
+(\(   18          \(print ""\)\)) s
+25.8 634 M (64:) s
+52.2 634 M
+(\(   19          \(print "unsorted"\)\)) s
+25.8 622 M (65:) s
+52.2 622 M
+(\(   20          \(let i 1\)\)) s
+25.8 610 M (66:) s
+52.2 610 M
+(\(   21 prtlp    \(print "a\(" i "\)=" \(a i\)\)\)) s
+25.8 598 M (67:) s
+52.2 598 M
+(\(   22          \(let i \(+ i 1\)\)\)) s
+25.8 586 M (68:) s
+52.2 586 M
+(\(   23          \(if \(<= i max\) prtlp\)\)) s
+25.8 574 M (69:) s
+52.2 574 M
+(\(   24          \(let i max\)\)) s
+25.8 562 M (70:) s
+52.2 562 M
+(\(   25 outer    \(let j 1\)\)) s
+25.8 550 M (71:) s
+52.2 550 M
+(\(   26 inner    \(if \(<= \(a j\) \(a \(+ j 1\)\)\) noswap\)\)) s
+25.8 538 M (72:) s
+52.2 538 M
+(\(   27          \(let t \(a j\)\)\)) s
+25.8 526 M (73:) s
+52.2 526 M
+(\(   28          \(let \(a j\) \(a \(+ j 1\)\)\)\)) s
+25.8 514 M (74:) s
+52.2 514 M
+(\(   29          \(let \(a \(+ j 1\)\) t\)\)) s
+25.8 502 M (75:) s
+52.2 502 M
+(\(   30 noswap   \)) s
+25.8 490 M (76:) s
+52.2 490 M
+(\(   31          \(let j \(+ j 1\)\)\)) s
+25.8 478 M (77:) s
+52.2 478 M
+(\(   32          \(if \(<= j \(- i 1\)\) inner\)\)) s
+25.8 466 M (78:) s
+52.2 466 M
+(\(   33          \(let i \(- i 1\)\)\)) s
+25.8 454 M (79:) s
+52.2 454 M
+(\(   34          \(if \(>= i 2\) outer\)\)) s
+25.8 442 M (80:) s
+52.2 442 M
+(\(   35          \(print ""\)\)) s
+25.8 430 M (81:) s
+52.2 430 M
+(\(   36          \(print "sorted"\)\)) s
+25.8 418 M (82:) s
+52.2 418 M
+(\(   37          \(let i 1\)\)) s
+25.8 406 M (83:) s
+52.2 406 M
+(\(   38 sortlp   \(print "a\(" i "\)=" \(a i\)\)\)) s
+25.8 394 M (84:) s
+52.2 394 M
+(\(   39          \(let i \(+ i 1\)\)\)) s
+25.8 382 M (85:) s
+52.2 382 M
+(\(   40          \(if \(<= i max\) sortlp\)\)) s
+25.8 370 M (86:) s
+52.2 370 M
+(\(   41          \(goto stop\)\)) s
+25.8 358 M (87:) s
+52.2 358 M
+(\(   42 error    \(print "Invalid input"\)\)) s
+25.8 346 M (88:) s
+52.2 346 M
+(\(   43 stop     \)) s
+25.8 334 M (89:) s
+52.2 334 M
+(\)) s
+_R
+S
+%%Page: (1) 20
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (.score/41-eratosthenes.sbir) def
+/fdir (.score) def
+/ftail (41-eratosthenes.sbir) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/23/16) def
+/pagecountstr (/1) def
+/modtimestr (18:23:20) def
+/user_header_p true def
+/user_header_left_str ($cmps112-wm/Assignments/asg1-scheme-sbi/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 694 M (1:) s
+52.2 694 M
+(;;File: 41-eratosthenes.sb) s
+32.4 682 M (2:) s
+52.2 682 M
+(;;   1: # $Id: 41-eratosthenes.sbir,v 1.1 2012-01-19 17:13:35-08 - - $) s
+32.4 670 M (3:) s
+52.2 670 M
+(;;   2: #) s
+32.4 658 M (4:) s
+52.2 658 M
+(;;   3:         let n = 100) s
+32.4 646 M (5:) s
+52.2 646 M
+(;;   4:         dim sieve\(n\)) s
+32.4 634 M (6:) s
+52.2 634 M
+(;;   5: ) s
+32.4 622 M (7:) s
+52.2 622 M
+(;;   6: # Assume all numbers in the sieve are prime) s
+32.4 610 M (8:) s
+52.2 610 M
+(;;   7: ) s
+32.4 598 M (9:) s
+52.2 598 M
+(;;   8:         let i = 2) s
+25.8 586 M (10:) s
+52.2 586 M
+(;;   9: init:   let sieve\(i\) = 1) s
+25.8 574 M (11:) s
+52.2 574 M
+(;;  10:         let i = i + 1) s
+25.8 562 M (12:) s
+52.2 562 M
+(;;  11:         if i < n goto init) s
+25.8 550 M (13:) s
+52.2 550 M
+(;;  12: ) s
+25.8 538 M (14:) s
+52.2 538 M
+(;;  13: # Find primes and punch out their multiples.) s
+25.8 526 M (15:) s
+52.2 526 M
+(;;  14: ) s
+25.8 514 M (16:) s
+52.2 514 M
+(;;  15:         let prime = 2) s
+25.8 502 M (17:) s
+52.2 502 M
+(;;  16: primes: if sieve\(prime\) = 0 goto next) s
+25.8 490 M (18:) s
+52.2 490 M
+(;;  17:         print prime) s
+25.8 478 M (19:) s
+52.2 478 M
+(;;  18:         let i = prime * 2) s
+25.8 466 M (20:) s
+52.2 466 M
+(;;  19:         goto punch) s
+25.8 454 M (21:) s
+52.2 454 M
+(;;  20: loop:   let sieve\(i\) = 0) s
+25.8 442 M (22:) s
+52.2 442 M
+(;;  21:         let i = i + prime) s
+25.8 430 M (23:) s
+52.2 430 M
+(;;  22: punch:  if i <= n goto loop) s
+25.8 418 M (24:) s
+52.2 418 M
+(;;  23: ) s
+25.8 406 M (25:) s
+52.2 406 M
+(;;  24: next:   let prime = prime + 1) s
+25.8 394 M (26:) s
+52.2 394 M
+(;;  25:         if prime <= n goto primes) s
+25.8 382 M (27:) s
+52.2 382 M
+(\() s
+25.8 370 M (28:) s
+52.2 370 M
+(\(    1          \)) s
+25.8 358 M (29:) s
+52.2 358 M
+(\(    2          \)) s
+25.8 346 M (30:) s
+52.2 346 M
+(\(    3          \(let n 100\)\)) s
+25.8 334 M (31:) s
+52.2 334 M
+(\(    4          \(dim \(sieve n\)\)\)) s
+25.8 322 M (32:) s
+52.2 322 M
+(\(    5          \)) s
+25.8 310 M (33:) s
+52.2 310 M
+(\(    6          \)) s
+25.8 298 M (34:) s
+52.2 298 M
+(\(    7          \)) s
+25.8 286 M (35:) s
+52.2 286 M
+(\(    8          \(let i 2\)\)) s
+25.8 274 M (36:) s
+52.2 274 M
+(\(    9 init     \(let \(sieve i\) 1\)\)) s
+25.8 262 M (37:) s
+52.2 262 M
+(\(   10          \(let i \(+ i 1\)\)\)) s
+25.8 250 M (38:) s
+52.2 250 M
+(\(   11          \(if \(< i n\) init\)\)) s
+25.8 238 M (39:) s
+52.2 238 M
+(\(   12          \)) s
+25.8 226 M (40:) s
+52.2 226 M
+(\(   13          \)) s
+25.8 214 M (41:) s
+52.2 214 M
+(\(   14          \)) s
+25.8 202 M (42:) s
+52.2 202 M
+(\(   15          \(let prime 2\)\)) s
+25.8 190 M (43:) s
+52.2 190 M
+(\(   16 primes   \(if \(= \(sieve prime\) 0\) next\)\)) s
+25.8 178 M (44:) s
+52.2 178 M
+(\(   17          \(print prime\)\)) s
+25.8 166 M (45:) s
+52.2 166 M
+(\(   18          \(let i \(* prime 2\)\)\)) s
+25.8 154 M (46:) s
+52.2 154 M
+(\(   19          \(goto punch\)\)) s
+25.8 142 M (47:) s
+52.2 142 M
+(\(   20 loop     \(let \(sieve i\) 0\)\)) s
+25.8 130 M (48:) s
+52.2 130 M
+(\(   21          \(let i \(+ i prime\)\)\)) s
+25.8 118 M (49:) s
+52.2 118 M
+(\(   22 punch    \(if \(<= i n\) loop\)\)) s
+25.8 106 M (50:) s
+52.2 106 M
+(\(   23          \)) s
+25.8 94 M (51:) s
+52.2 94 M
+(\(   24 next     \(let prime \(+ prime 1\)\)\)) s
+25.8 82 M (52:) s
+52.2 82 M
+(\(   25          \(if \(<= prime n\) primes\)\)) s
+25.8 70 M (53:) s
+52.2 70 M
+(\)) s
+_R
+S
+%%Trailer
+%%Pages: 20
+%%DocumentNeededResources: font Times-Roman Courier-Bold Times-Bold 
+%%EOF

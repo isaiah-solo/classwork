@@ -1,0 +1,20 @@
+# $Id: 30-input-pi.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+#
+
+	let pi = 4 * atan(1)
+
+	print "RE: House Bill 246, Indiana State Legislature, 1897"
+	print "Enter 1 if it has passed and 0 if not."
+
+	input tennessee
+	if tennessee = 0 goto prt
+	let pi = 3 
+prt:	print "pi = ", pi
+
+# Print some random junk to exercise the interpreter.
+
+	print
+	print
+	print .333333333333333333333333333333333333333333
+	let avogadro = 6.02e23
+	print avogadro

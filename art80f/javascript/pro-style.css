@@ -1,0 +1,19 @@
+#processingFrame {
+	width: 100%;
+	margin: 0 auto;
+	height: 100%;
+        text-align: left;
+}
+
+#processingDiv {
+	width: 650px;
+	margin: 0 auto;
+	height: 490px;
+	background-color:#ED550D;
+        text-align: left;
+}
+
+#processing-body {
+	background-color:#ED550D;
+        text-align: left;
+}

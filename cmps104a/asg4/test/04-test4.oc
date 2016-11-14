@@ -1,0 +1,18 @@
+// $Id: 04-test4.oc,v 1.1 2011-09-15 18:50:16-07 - - $
+
+#include "oclib.oh"
+
+struct foo {
+   int a;
+}
+
+int a = 6;
+foo b = new foo ();
+b.a = 8;
+a = a * b.a + 6;;
+
+puti (a);
+putc (' ');
+puti (b.a);
+endl ();
+

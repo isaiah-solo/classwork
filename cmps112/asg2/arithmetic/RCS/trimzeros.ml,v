@@ -1,0 +1,44 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@; @;
+
+
+1.1
+date	2012.02.11.01.34.29;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@(* $Id: trimzeros.ml,v 1.1 2009-03-04 12:43:00-08 - - $ *)
+
+(*
+* Trim off zeros from the end of a list.  If the list is a number
+* represented in reveerse order, this trims high-order digits, as
+* would be needed after a subtraction.
+*)
+
+let trimzeros list =
+    let rec trimzeros' list' = match list' with
+        | []       -> []
+        | [0]      -> []
+        | car::cdr ->
+             let cdr' = trimzeros' cdr
+             in  match car, cdr' with
+                 | 0, [] -> []
+                 | car, cdr' -> car::cdr'
+    in trimzeros' list
+;;
+
+trimzeros [4;3;2;1;0;0;0;0];;
+@

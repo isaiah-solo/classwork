@@ -1,0 +1,33 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 11-let.sb,v 1.1 2008-02-05 15:34:36-08 - - $
+#
+# test let
+#
+	let i = 1
+	let j = i + 3
+	let k = 8 * i + 9 / j
+	print "i=", i
+	print "j=", j
+	print "k=", k
+@

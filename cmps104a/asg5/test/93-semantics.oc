@@ -1,0 +1,10 @@
+// $Id: 93-semantics.oc,v 1.1 2011-11-01 22:02:19-07 - - $
+// This code should scan and parse correctly,
+// but fail to type check.
+int[] a = null;
+int[] b = null;
+int c = a + b; // can't add arrays
+void[] f() {}; // can't hae void[]
+void n = null; // can't have void vars
+bool x = a < b; // can't compare pointers <
+bool y = a==b; // this is ok

@@ -1,0 +1,9 @@
+# $Id: 12-let.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+
+# Simple let without expressions.
+
+	let i = 6
+	print i
+	dim a(10)
+	let a(i) = 9
+	print a(i)

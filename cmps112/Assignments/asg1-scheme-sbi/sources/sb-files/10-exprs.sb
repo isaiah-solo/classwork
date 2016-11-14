@@ -1,0 +1,32 @@
+# $Id: 10-exprs.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+#
+# All of the following should print something without error messages.
+# This program checks to see if expressions can be interpreted.
+#
+
+	let pi = 4 * atan(1)
+	let e = exp(1)
+
+	print "1+1      = ", 1+1
+	print "2-2      = ", 2- 2
+	print "3*3      = ", 3*3
+	print "4/9      = ", 4/9
+	print "2^10     = ", 2^10
+	print "3*4+5*6  = ", 3*4+5*6
+#
+	print "log(10)  = ", log(10)
+	print "sqrt(2)  = ", sqrt(2)
+	print "pi       = ", pi
+	print "e        = ", e
+#
+	print "+1/+0    = ", +1/+0
+	print "-1/+0    = ", -1/+0
+	print "+1/-0    = ", +1/-0
+	print "-1/-0    = ", -1/-0
+	print "+0/+0    = ", +0/+0
+	print "-0/-0    = ", -0/-0
+	print "sqrt(-1) = ", sqrt(-1)
+	print "log(0)   = ", log(0)
+#
+	print "6.02e23  = ", 6.02*10^23
+	print "(1+2)/7  = ", (1+2)/7

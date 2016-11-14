@@ -1,0 +1,45 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 25-pi-e-fns.sb,v 1.1 2008-02-05 15:34:37-08 - - $
+
+print pi, e
+let pi = 4 * atan(1)
+let e = exp(1)
+print "pi = ", pi
+print "e = ", e
+
+print "sqrt ( pi ) = ", sqrt ( pi )
+print "exp  ( pi ) = ", exp  ( pi )
+print "log  ( pi ) = ", log  ( pi )
+print "sin  ( pi ) = ", sin  ( pi )
+print "cos  ( pi ) = ", cos  ( pi )
+print "tan  ( pi ) = ", tan  ( pi )
+print "acos ( pi ) = ", acos ( pi )
+print "asin ( pi ) = ", asin ( pi )
+print "atan ( pi ) = ", atan ( pi )
+print "abs  ( pi ) = ", abs  ( pi )
+print "ceil ( pi ) = ", ceil ( pi )
+print "floor( pi ) = ", floor( pi )
+print "round( pi ) = ", round( pi )
+
+@

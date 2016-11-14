@@ -1,0 +1,54 @@
+bash-1$ ocaml
+        OCaml version 4.02.1
+
+# #use "mathfns-trace.ml";;
+val even : int -> bool = <fun>
+val frexp' : float -> float * int = <fun>
+val ldexp' : float * int -> float = <fun>
+val power' : float * int * float -> float = <fun>
+val power : float * int -> float = <fun>
+val sqrt' : float * float -> float = <fun>
+val sqrt : float -> float = <fun>
+power is now traced.
+power' is now traced.
+sqrt is now traced.
+frexp' is now traced.
+ldexp' is now traced.
+sqrt' is now traced.
+# sqrt 2.;;
+sqrt <-- 2.
+frexp' <-- 2.
+frexp' --> (0.5, 2)
+ldexp' <-- (0.5, 1)
+ldexp' --> 1.
+sqrt' <-- (2., 1.)
+sqrt' <-- (2., 1.5)
+sqrt' <-- (2., 1.41666666666666652)
+sqrt' <-- (2., 1.41421568627450966)
+sqrt' <-- (2., 1.41421356237468987)
+sqrt' <-- (2., 1.41421356237309492)
+sqrt' --> 1.41421356237309492
+sqrt' --> 1.41421356237309492
+sqrt' --> 1.41421356237309492
+sqrt' --> 1.41421356237309492
+sqrt' --> 1.41421356237309492
+sqrt' --> 1.41421356237309492
+sqrt --> 1.41421356237309492
+- : float = 1.41421356237309492
+# sqrt 1000.;;
+sqrt <-- 1000.
+frexp' <-- 1000.
+frexp' --> (0.9765625, 10)
+ldexp' <-- (0.9765625, 5)
+ldexp' --> 31.25
+sqrt' <-- (1000., 31.25)
+sqrt' <-- (1000., 31.625)
+sqrt' <-- (1000., 31.6227766798419)
+sqrt' <-- (1000., 31.6227766016837926)
+sqrt' --> 31.6227766016837926
+sqrt' --> 31.6227766016837926
+sqrt' --> 31.6227766016837926
+sqrt' --> 31.6227766016837926
+sqrt --> 31.6227766016837926
+- : float = 31.6227766016837926
+# 

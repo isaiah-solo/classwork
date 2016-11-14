@@ -1,0 +1,9 @@
+// $Id: 94-syntax.oc,v 1.1 2011-11-01 22:02:19-07 - - $
+k
+int f() {
+int a = ;
+return foo;
+public static void main (String[] args) {
+   System.exit (255);
+}
+

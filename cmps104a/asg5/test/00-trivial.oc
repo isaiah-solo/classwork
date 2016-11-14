@@ -1,0 +1,4 @@
+// $Id: 00-trivial.oc,v 1.1 2011-09-15 18:50:16-07 - - $
+//
+// This program does nothing then returns an exit status of 0.
+//

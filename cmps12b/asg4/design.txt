@@ -1,0 +1,13 @@
+Isaiah Solomon
+icsolomo
+CMPS 12B
+design.txt
+Document that explains the program
+
+My design is organized with several files that have different objects and data structures used by cyoa.java.  I also included many methods in my files for use in cyoa.java.
+
+The file list.java uses a queue to temporarily hold the lines in the provided text file so that they can be organized and used at a later time.  I chose a queue because it puts the lines in the file into the queue in order and takes it out of the queue in order with only O(1) time each.  I also considered a doubly-linked list; however, I felt that traversing through the linked list was not of importance and that the important thing was keeping the lines in order.
+
+The file map.java uses a binary tree to hold all of the rooms.  This is most efficient because inserting rooms and finding rooms only take O(log(n)).  I considered using a singly-linked list; however, finding a room would take O(n) because you must start at the first element and go through each one until you find the correct room.  This file also stores the choices for each room in an ordered array and based on what the user inputted, will go directly to the corresponding element in the array.
+
+Finally, the file stack.java contains the stack used for the history and undo button.  This data structure is most efficient because the stack keeps track of the history in order and pops out the last room name out first and does this with O(1).

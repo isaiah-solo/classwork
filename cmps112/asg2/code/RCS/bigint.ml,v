@@ -1,0 +1,203 @@
+head	1.5;
+access;
+symbols;
+locks;
+comment	@; @;
+
+
+1.5
+date	2014.11.11.23.06.24;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2012.02.15.20.24.21;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2012.02.08.02.17.52;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2011.04.26.20.55.13;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2011.04.26.20.39.18;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.5
+log
+@-
+@
+text
+@(* $Id: bigint.ml,v 1.4 2012-02-15 12:24:21-08 - - $ *)
+
+open Printf
+
+module Bigint = struct
+
+    type sign     = Pos | Neg
+    type bigint   = Bigint of sign * int list
+    let  radix    = 10
+    let  radixlen =  1
+
+    let car       = List.hd
+    let cdr       = List.tl
+    let map       = List.map
+    let reverse   = List.rev
+    let strcat    = String.concat
+    let strlen    = String.length
+    let strsub    = String.sub
+    let zero      = Bigint (Pos, [])
+
+    let charlist_of_string str = 
+        let last = strlen str - 1
+        in  let rec charlist pos result =
+            if pos < 0
+            then result
+            else charlist (pos - 1) (str.[pos] :: result)
+        in  charlist last []
+
+    let bigint_of_string str =
+        let len = strlen str
+        in  let to_intlist first =
+                let substr = strsub str first (len - first) in
+                let digit char = int_of_char char - int_of_char '0' in
+                map digit (reverse (charlist_of_string substr))
+            in  if   len = 0
+                then zero
+                else if   str.[0] = '_'
+                     then Bigint (Neg, to_intlist 1)
+                     else Bigint (Pos, to_intlist 0)
+
+    let string_of_bigint (Bigint (sign, value)) =
+        match value with
+        | []    -> "0"
+        | value -> let reversed = reverse value
+                   in  strcat ""
+                       ((if sign = Pos then "" else "-") ::
+                        (map string_of_int reversed))
+
+    let rec add' list1 list2 carry = match (list1, list2, carry) with
+        | list1, [], 0       -> list1
+        | [], list2, 0       -> list2
+        | list1, [], carry   -> add' list1 [carry] 0
+        | [], list2, carry   -> add' [carry] list2 0
+        | car1::cdr1, car2::cdr2, carry ->
+          let sum = car1 + car2 + carry
+          in  sum mod radix :: add' cdr1 cdr2 (sum / radix)
+
+    let add (Bigint (neg1, value1)) (Bigint (neg2, value2)) =
+        if neg1 = neg2
+        then Bigint (neg1, add' value1 value2 0)
+        else zero
+
+    let sub = add
+
+    let mul = add
+
+    let div = add
+
+    let rem = add
+
+    let pow = add
+
+end
+
+@
+
+
+1.4
+log
+@-
+@
+text
+@d1 1
+a1 1
+(* $Id: bigint.ml,v 1.3 2012-02-07 18:17:52-08 - - $ *)
+d36 1
+a36 1
+                then Bigint (Pos, [])
+d61 1
+a61 1
+        else Bigint (Pos, [])
+@
+
+
+1.3
+log
+@-
+@
+text
+@d1 1
+a1 1
+(* $Id: bigint.ml,v 1.2 2011-04-26 13:55:13-07 - - $ *)
+d32 1
+a32 1
+                let substr = strsub str first len in
+d48 1
+a48 1
+
+@
+
+
+1.2
+log
+@-
+@
+text
+@d1 1
+a1 1
+(* $Id: bigint.ml,v 1.1 2011-04-26 13:39:18-07 - - $ *)
+d9 2
+a10 2
+    let  radix    = 1000
+    let  radixlen =    3
+d21 8
+d30 5
+a34 10
+        let rec makelist str first len =
+            if   first = len
+            then [] 
+            else let diff = len - first in
+                 let len' = len - radixlen in
+                 if   diff < radixlen
+                 then [int_of_string (strsub str first diff)]
+                 else (int_of_string (strsub str len' radixlen))
+                      :: (makelist str first len')
+        in  let len = strlen str
+d38 2
+a39 2
+                     then Bigint (Neg, makelist str 1 len)
+                     else Bigint (Pos, makelist str 0 len)
+d47 1
+a47 2
+                        (string_of_int (car reversed)) ::
+                        (map (sprintf "%03d") (cdr reversed)))
+@
+
+
+1.1
+log
+@-
+@
+text
+@d1 3
+a3 1
+(* $Id: bigint.ml,v 1.1 2009-02-20 20:07:25-08 - - $ *)
+a10 1
+    let  sprintfradix = Printf.sprintf "%03d"
+d45 1
+a45 1
+                        (map sprintfradix (cdr reversed)))
+@

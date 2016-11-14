@@ -1,0 +1,35 @@
+r start
+d It's a late night. Your CMPS 12B homework still isn't done. It was technically due tonight, but there's a rocking party happening across campus.
+d Your grade is doing OK in the class.
+o Debug your code.
+t debug
+o Bang head against computer.
+t banging
+o Go to the party.
+t party
+
+r debug
+d You debug your code late into the night. Actually it is technically morning now.
+d The screen is getting blurry. You are hungry.
+o Keep debugging the code.
+t start
+o Give up.
+t banging
+
+r banging
+d Thud. Thud. Thud.
+d You bang your head against your computer.
+d Thud.
+d Your head hurts.
+o Keep banging head.
+t banging
+o Give up and go to the party.
+t party
+
+r party
+d You lethargically pry yourself away from the computer. "I'll finish it up in the morning before class," you lie to yourself.
+d You grab a hoodie and your keys then stumble out the door. The trek across campus is uneventful.
+d Your friend hears you knocking and lets you in. It doesn't look like a party. In fact, there's just your friend and the roommate.
+d "Yo hommes, whaddup, I thought there was a partay," you manage.
+d "Uh, that was last night. What day do you think it is? Were you seriously up all night and all day doing your CMPS 12B homework?"
+d Ah, that explains the pounding in your head and the gnawing hunger in your belly.

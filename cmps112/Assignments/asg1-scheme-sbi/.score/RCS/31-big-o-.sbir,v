@@ -1,0 +1,119 @@
+head	1.2;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.2
+date	2014.10.29.21.27.31;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@-
+@
+text
+@;;File: 31-big-o-.sb
+;;   1: # $Id: 31-big-o-.sb,v 1.2 2014-10-29 14:26:40-07 - - $
+;;   2: 
+;;   3: # Given the value of N1, is the following program guaranteed
+;;   4: # to terminate?  If so, what is the big-O of time for termination?
+;;   5: # http://en.wikipedia.org/wiki/Collatz_conjecture
+;;   6: 
+;;   7: # Big-O
+;;   8: # C:	while(n>1)n=n&1?3*n+1:n/2;
+;;   9: # APL:	L:->Lxi1<N<-((|_N/2),3xN+1)[1=2|N]
+;;  10: 
+;;  11: 	input N1
+;;  12: 	let i = 0
+;;  13: 	let n = N1
+;;  14: while:	if n <= 1 goto done
+;;  15: 	let i = i + 1
+;;  16: 	let f = floor( n / 2 )
+;;  17: 	if n <> f * 2 goto odd
+;;  18: 	let n = f
+;;  19: 	goto while
+;;  20: odd:	let n = n * 3 + 1
+;;  21: 	goto while
+;;  22: done:	print N1, " loops ", i, " times."
+(
+(    1          )
+(    2          )
+(    3          )
+(    4          )
+(    5          )
+(    6          )
+(    7          )
+(    8          )
+(    9          )
+(   10          )
+(   11          (input N1))
+(   12          (let i 0))
+(   13          (let n N1))
+(   14 while    (if (<= n 1) done))
+(   15          (let i (+ i 1)))
+(   16          (let f (floor (/ n 2))))
+(   17          (if (<> n (* f 2)) odd))
+(   18          (let n f))
+(   19          (goto while))
+(   20 odd      (let n (+ (* n 3) 1)))
+(   21          (goto while))
+(   22 done     (print N1 " loops " i " times."))
+)
+@
+
+
+1.1
+log
+@-
+@
+text
+@d2 1
+a2 1
+;;   1: # $Id: 31-big-o-.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+d6 18
+a23 17
+;;   5: 
+;;   6: # Big-O
+;;   7: # C:	while(n>1)n=n&1?3*n+1:n/2;
+;;   8: # APL:	L:->Lxi1<N<-((|_N/2),3xN+1)[1=2|N]
+;;   9: 
+;;  10: 	input N1
+;;  11: 	let i = 0
+;;  12: 	let n = N1
+;;  13: while:	if n <= 1 goto done
+;;  14: 	let i = i + 1
+;;  15: 	let f = floor( n / 2 )
+;;  16: 	if n <> f * 2 goto odd
+;;  17: 	let n = f
+;;  18: 	goto while
+;;  19: odd:	let n = n * 3 + 1
+;;  20: 	goto while
+;;  21: done:	print N1, " loops ", i, " times."
+d34 13
+a46 12
+(   10          (input N1))
+(   11          (let i 0))
+(   12          (let n N1))
+(   13 while    (if (<= n 1) done))
+(   14          (let i (+ i 1)))
+(   15          (let f (floor (/ n 2))))
+(   16          (if (<> n (* f 2)) odd))
+(   17          (let n f))
+(   18          (goto while))
+(   19 odd      (let n (+ (* n 3) 1)))
+(   20          (goto while))
+(   21 done     (print N1 " loops " i " times."))
+@

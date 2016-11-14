@@ -1,0 +1,9 @@
+checksource: improper character \x0D = ^M (carriage return)
+   file "README": 21 errors: lines 1--21
+checksource: line length > 72 characters
+   file "Makefile": 1 errors: line 7
+   file "symtable.cpp": 25 errors: lines 26, 43, 157, 162, 167, 172, 
+        534, 780--782, 784--796, 862, 878
+checksource: missing newline at end of line
+   file "README": 1 errors: line 22
+checksource: TOTAL COMPLAINTS: 48

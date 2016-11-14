@@ -1,0 +1,92 @@
+ ZZZ 
+Grader:  copy this file into the student's directory and grade
+according to the following point values.  There are a max of 30
+points for the program and 30 points for the test run.  
+
+The numbers in parens are the max points for a particular section.
+Enter some number between 0 and the max depending on the quality
+of the work.
+
+________________________________________________________________________
+PROGRAM SOURCE CODE. (30)
+
+    Run mk.build
+
+    (3) checksource did not complain
+
+    (3) no loops, all control via recursion
+
+    (3) general appearance of code, indentation, meaningful idents
+
+    (3) code to implement + and - by calling a worker function
+
+    (3) actual absolute add function
+
+    (3) actual absolute sub function
+
+    (3) code to implement l and s functions, symbol table
+
+    (3) code to implement *, /, %, ^
+
+    (3) finished implementation in main execute
+
+    (3) code to implement c d f p
+
+total source code: /30
+min 1, max 30.
+
+________________________________________________________________________
+TEST RUN.  (30)
+
+If the makefile does not produce the executable scmdc as
+required, create it by hand, or run it interactively from bigloo
+from the assignments subdirectory.
+
+Compare the output approximately to that produced by dc.
+
+    Run mk.tests
+
+    (3) If gmake above failed, deduct 3 points and build the
+        binary by hand.
+
+    Do each of the following tests produce output exactly as
+    dc?  Approximately as dc?  Give full points if output is
+    close or reasonable.
+
+    (3) test0-stack
+
+    (3) test1-addition
+
+    (3) test2-subtract 
+
+    (3) test3-muldivrem.in
+
+    (3) test4-expsqrt.in
+
+    (3) test5-underflow.in
+
+    (3) test6-loadstore.in
+
+    Final two checks after looking at testing:
+
+    (3) Deduct 3 points if any diff output from dc vs ocamldc.
+        But in the tests below, allow anything reasonable.
+
+    (3) Deduct 3 points if any of the test runs caused an ocaml
+        crash on an exception instead of normal completion.
+
+total testing: /30
+min 0, max 30
+
+________________________________________________________________________
+
+Add program + testing totals, giving:
+SUBTOTAL=
+
+If pair programming, TOTALSCORE = SUBTOTAL - TOTAL1.
+If not, TOTALSCORE = SUBTOTAL.
+
+TOTALSCORE=
+
+$Id: SCORE,v 1.1 2016-09-30 16:02:16-07 - - $
+

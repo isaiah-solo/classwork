@@ -1,0 +1,32 @@
+# $Id: 32-factorial.sb,v 1.1 2009-02-03 17:37:29-08 - - $
+#
+# Factorial.
+#
+read:	print "Factorial of:"
+	input x
+	# check the variable eof for a valid value or not.
+	if inputcount = -1 goto stop
+	if inputcount = 0 goto error
+	if x < 0 goto error
+	goto letfac
+error:	print "Invalid input."
+	goto read
+
+#
+#
+#
+
+letfac:	let factorial = 1
+	let itor = 2
+loop:	if itor > x goto prt
+	let factorial = factorial * itor
+	let itor = itor + 1
+	goto loop
+prt:	print "factorial(", x, ") = ", factorial
+	goto read
+
+#
+# end of file.
+#
+
+stop:	print "Program stopping."

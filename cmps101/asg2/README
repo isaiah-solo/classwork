@@ -1,0 +1,27 @@
+Isaiah Solomon
+icsolomo
+
+My program, graph02, takes in an input file that has its first line containing the amount
+of allocated space given for the array, and the rest of the lines containing the numbers 
+to go in the lists in the array.  You run the program by typing "graph02" followed by a 
+space and the name of the file, or a "-" to recieve input from stdin. To print the 
+output of stdin, press ctrl-D.
+
+First, graph02 displays the original graph including a check to see if it has any cycles.
+Then, it finds the transpose of the graph and checks for a cycle in that graph. Then, it
+repeats until it transposes the graph 3 times.
+
+I have 3 test files. "test0.in" just tests to see if the program works. "test1.in" tests
+to see if a single vertex cycle is possible. "test2.in" tests how the program handles a 
+graph with no cycles.
+
+The header is updated with the transpose function and the cycle functions.
+
+intList.c
+intList.h
+graph02.c
+Makefile
+test0.in
+test1.in
+test2.in
+README

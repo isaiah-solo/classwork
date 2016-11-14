@@ -1,0 +1,52 @@
+// $Id: 40-arraystack.oc,v 1.6 2012-12-03 13:23:28-08 - - $
+
+#include "oclib.oh"
+
+#define EMPTY (-1)
+
+struct stack {
+   string[] data;
+   int size;
+   int top;
+}
+
+stack new_stack (int size) {
+   stack stack = new stack (); // Zeros out both fields.
+   stack.data = new string[size]; // Array of null pointers.
+   stack.size = size;
+   stack.top = EMPTY;
+   return stack;
+}
+
+void push (stack stack, string str) {
+   assert (stack.top < stack.size - 1);
+   stack.top = stack.top + 1;
+   stack.data[stack.top] = str;
+}
+
+string pop (stack stack) {
+   assert (stack.top != EMPTY);
+   string tmp = stack.data[stack.top];
+   stack.top = stack.top - 1;
+   return tmp;
+}
+
+bool empty (stack stack) {
+   return stack.top == EMPTY;
+}
+
+// Main program.
+string[] argv = getargv ();
+stack stack = new_stack (100);
+
+int argi = 0;
+while (argv[argi] != null) {
+   push (stack, argv[argi]);
+   argi = argi + 1;
+}
+
+while (! empty (stack)) {
+   puts (pop (stack));
+   endl ();
+}
+

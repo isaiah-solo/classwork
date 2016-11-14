@@ -1,0 +1,29 @@
+// $Id: 20-fib-array.oc,v 1.3 2012-12-03 13:22:58-08 - - $
+//
+// Put Fibonacci numbers in an array, then print them.
+//
+
+#include "oclib.oh"
+
+#define FIB_SIZE 30
+int[] fibonacci = new int[FIB_SIZE];
+
+fibonacci[0] = 0;
+fibonacci[1] = 1;
+
+int index = 2;
+while (index < FIB_SIZE) {
+   fibonacci[index] = fibonacci[index - 1] + fibonacci[index - 2];
+   index = index + 1;
+}
+
+index = 0;
+puts ("Numeri di figlio Bonacci\n");
+while (index < FIB_SIZE) {
+   puts ("fibonacci[");
+   puti (index);
+   puts (" = ");
+   puti (fibonacci[index]);
+   endl ();
+   index = index + 1;
+}

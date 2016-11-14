@@ -1,0 +1,7 @@
+# 1 "96-unterminated.oc"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "96-unterminated.oc"
+3   4.000 262 TOK_STRING    (string)
+3   4.007 283 TOK_IDENT     (t)
+3   4.009  61 '='           (=)

@@ -1,0 +1,40 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 22-fibonacci.sb,v 1.1 2008-02-05 15:34:36-08 - - $
+#
+# Print out all Fibonacci numbers up to max.
+#
+	let max = 10^6
+
+	let fib0 = 0
+	let fib1 = 1
+	print "fib(", 0, ")=", fib0
+	print "fib(", 1, ")=", fib1
+	let i=1
+loop:	let fib = fib0 + fib1
+	let i=i+1
+	print "fib(", i, ")=", fib
+	let fib0 = fib1
+	let fib1 = fib
+	if fib <= max goto loop
+@

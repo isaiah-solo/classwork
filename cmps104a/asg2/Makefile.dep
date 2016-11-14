@@ -1,0 +1,5 @@
+auxlib.o: auxlib.cpp auxlib.h
+stringset.o: stringset.cpp stringset.h
+lyutils.o: lyutils.cpp lyutils.h astree.h auxlib.h yyparse.h
+astree.o: astree.cpp astree.h auxlib.h stringset.h lyutils.h yyparse.h
+oc.o: oc.cpp auxlib.h stringset.h lyutils.h astree.h yyparse.h

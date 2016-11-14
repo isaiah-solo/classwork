@@ -1,0 +1,54 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@;;File: 01-1to10.sb
+;;   1: # $Id: 01-1to10.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+;;   2: #
+;;   3: # Print the numbers 1 to 10, one number per line.
+;;   4: #
+;;   5: print  1
+;;   6: print  2
+;;   7: print  3
+;;   8: print  4
+;;   9: print  5
+;;  10: print  6
+;;  11: print  7
+;;  12: print  8
+;;  13: print  9
+;;  14: print 10
+(
+(    1          )
+(    2          )
+(    3          )
+(    4          )
+(    5          (print 1))
+(    6          (print 2))
+(    7          (print 3))
+(    8          (print 4))
+(    9          (print 5))
+(   10          (print 6))
+(   11          (print 7))
+(   12          (print 8))
+(   13          (print 9))
+(   14          (print 10))
+)
+@

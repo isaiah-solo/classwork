@@ -1,0 +1,41 @@
+// $Id: 23-atoi.oc,v 1.7 2012-12-03 13:21:36-08 - - $
+
+#include "oclib.oh"
+
+int atoi (string str) {
+   assert (str != null);
+   bool neg = false;
+   int num = 0;
+   int digit = 0;
+   if (str[0] != '\0') {
+      if (str[0] == '-') {
+         digit = digit + 1;
+         neg = true;
+      }
+      bool contin = true;
+      while (contin) {
+         if (str[digit] == '\0') {
+            contin = false;
+         }else {
+            char c = str[digit];
+            digit = digit + 1;
+            if (c < '0') contin = false;
+            else if (c > '9') contin = false;
+            else num = num * 10 + ord c - ord '0';
+         }
+      }
+      if (neg) num = - num;
+   }
+   return num;
+}
+
+int argi = 0;
+string[] argv = getargv ();
+while (argv[argi] != null) {
+   string arg = argv[argi];
+   puts (arg);
+   puts (" = ");
+   puti (atoi (arg));
+   endl ();
+}
+

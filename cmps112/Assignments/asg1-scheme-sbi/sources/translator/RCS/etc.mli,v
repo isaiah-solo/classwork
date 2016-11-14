@@ -1,0 +1,39 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.24.36;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@(* $Id: etc.mli,v 1.1 2008-02-05 15:27:12-08 - - $ *)
+
+(*
+* Main program and system access.
+*)
+
+val execname : string
+
+val quit : unit -> unit
+
+val eprint : string list -> unit
+
+val lexeprint : Lexing.position -> string list -> unit
+
+val usageprint : string list -> unit
+
+@

@@ -1,0 +1,9 @@
+96-unterminated.oc:5:12: warning: missing terminating " character
+96-unterminated.oc:6:10: warning: missing terminating ' character
+96-unterminated.oc:7:5: warning: missing terminating " character
+96-unterminated.oc:8:5: warning: missing terminating " character
+96-unterminated.oc:5:12: warning: missing terminating " character
+96-unterminated.oc:6:10: warning: missing terminating ' character
+96-unterminated.oc:7:5: warning: missing terminating " character
+96-unterminated.oc:8:5: warning: missing terminating " character
+flex scanner jammed

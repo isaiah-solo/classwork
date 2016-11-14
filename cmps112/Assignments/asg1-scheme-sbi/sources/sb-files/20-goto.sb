@@ -1,0 +1,14 @@
+# $Id: 20-goto.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+#
+	goto zero
+four:	print "four"
+	goto done
+one:	print "one"
+	goto two
+three:	print "three"
+	goto four
+two:	print "two"
+	goto three
+zero:	print "zero"
+	goto one
+done:

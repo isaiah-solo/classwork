@@ -1,0 +1,49 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2015.10.06.21.39.33;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@OCaml references and tutorials:
+
+The OCaml system release 4.02: Documentation and user's manual
+http://caml.inria.fr/pub/docs/manual-ocaml/
+This is where you should look up specific modules and functions
+available in the language.
+
+A Hundred Lines of Caml
+http://caml.inria.fr/about/taste.en.html
+Very brief introduction from the first OCaml lecture.
+
+Real World OCaml
+https://realworldocaml.org/v1/en/html/index.html
+An introductory book about OCaml.
+Read it online for free or buy the book from O'Reilly.
+
+Developing Applications With Objective Caml
+http://caml.inria.fr/pub/docs/oreilly-book/
+Another book which you can read as HTML or download as a PDF.
+Chapters 2, 3, 4 are most relevant.
+
+Introduction to Objective Caml
+http://www.cs.columbia.edu/~sedwards/classes/2012/w4115-spring/ocaml.pdf
+Slide presentation.
+
+$Id: README.cat,v 1.6 2014-11-20 15:45:41-08 - - $
+@

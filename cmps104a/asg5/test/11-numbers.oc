@@ -1,0 +1,13 @@
+// $Id: 11-numbers.oc,v 1.1 2011-09-15 18:50:16-07 - - $
+
+#include "oclib.oh"
+
+int number = 1;
+while (number > 0) {
+   puti (number);
+   putc ('\n');
+   number = number + number;
+}
+puti (number);
+putc ('\n');
+

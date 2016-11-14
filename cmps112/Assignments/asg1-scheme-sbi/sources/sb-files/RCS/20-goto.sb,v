@@ -1,0 +1,37 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 20-goto.sb,v 1.1 2008-02-05 15:34:36-08 - - $
+#
+	goto zero
+four:	print "four"
+	goto done
+one:	print "one"
+	goto two
+three:	print "three"
+	goto four
+two:	print "two"
+	goto three
+zero:	print "zero"
+	goto one
+done:
+@

@@ -1,0 +1,40 @@
+Makefile:60: Makefile.dep: No such file or directory
+touch yyparse.h
+g++ -MM -std=gnu++11 auxlib.cpp stringset.cpp lyutils.cpp astree.cpp oc.cpp symtable.cpp > Makefile.dep
+bison --defines=yyparse.h --output=yyparse.cpp parser.y
+parser.y: conflicts: 1 shift/reduce, 54 reduce/reduce
+flex --outfile=yylex.cpp scanner.l 2>yylex.output
+grep -v '^ ' yylex.output
+flex version 2.5.35 usage statistics:
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c yylex.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c yyparse.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c auxlib.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c stringset.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c lyutils.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c astree.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c oc.cpp
+g++ -g -O0 -Wall -Wextra -std=gnu++11 -c symtable.cpp
+symtable.cpp: In function ‘attr_bitset* dump_symbol(astree*)’:
+symtable.cpp:266:16: error: ‘attr’ was not declared in this scope
+         return attr;
+                ^
+symtable.cpp:304:16: error: ‘attr’ was not declared in this scope
+         return attr;
+                ^
+symtable.cpp:396:16: error: ‘attr’ was not declared in this scope
+         return attr;
+                ^
+symtable.cpp:623:65: error: ‘traverse_block’ was not declared in this scope
+         symbolFound = traverse_block(*symbol_stack.back(), tname);
+                                                                 ^
+symtable.cpp:661:65: error: ‘traverse_block’ was not declared in this scope
+         symbolFound = traverse_block(*symbol_stack.back(), tname);
+                                                                 ^
+symtable.cpp:700:65: error: ‘traverse_block’ was not declared in this scope
+         symbolFound = traverse_block(*symbol_stack.back(), tname);
+                                                                 ^
+symtable.cpp: In function ‘std::string type_check(astree*, symbol_table)’:
+symtable.cpp:848:46: error: ‘traverse_block_two’ was not declared in this scope
+          type = traverse_block_two(table, lex);
+                                              ^
+gmake: *** [symtable.o] Error 1

@@ -1,0 +1,40 @@
+TOK_ROOT "" 0.0.0
+|   TOK_VARDECL "=" 7.4.8
+|   |   TOK_INT "int" 7.4.0
+|   |   |   TOK_ARRAY "[]" 7.4.3
+|   |   |   TOK_DECLID "a" 7.4.6
+|   |   TOK_IDENT "null" 7.4.10
+|   TOK_VARDECL "=" 7.5.8
+|   |   TOK_INT "int" 7.5.0
+|   |   |   TOK_ARRAY "[]" 7.5.3
+|   |   |   TOK_DECLID "b" 7.5.6
+|   |   TOK_IDENT "null" 7.5.10
+|   TOK_VARDECL "=" 7.6.6
+|   |   TOK_INT "int" 7.6.0
+|   |   |   TOK_DECLID "c" 7.6.4
+|   |   '+' "+" 7.6.10
+|   |   |   TOK_IDENT "a" 7.6.8
+|   |   |   TOK_IDENT "b" 7.6.12
+|   TOK_FUNCTION "" 7.7.0
+|   |   TOK_VOID "void" 7.7.0
+|   |   |   TOK_ARRAY "[]" 7.7.4
+|   |   |   TOK_DECLID "f" 7.7.7
+|   |   TOK_BLOCK "{" 7.7.11
+|   |   TOK_PARAMLIST "(" 7.7.8
+|   ';' ";" 7.7.13
+|   TOK_VARDECL "=" 7.8.7
+|   |   TOK_VOID "void" 7.8.0
+|   |   |   TOK_DECLID "n" 7.8.5
+|   |   TOK_IDENT "null" 7.8.9
+|   TOK_VARDECL "=" 7.9.7
+|   |   TOK_BOOL "bool" 7.9.0
+|   |   |   TOK_DECLID "x" 7.9.5
+|   |   TOK_LT "<" 7.9.11
+|   |   |   TOK_IDENT "a" 7.9.9
+|   |   |   TOK_IDENT "b" 7.9.13
+|   TOK_VARDECL "=" 7.10.7
+|   |   TOK_BOOL "bool" 7.10.0
+|   |   |   TOK_DECLID "y" 7.10.5
+|   |   TOK_EQ "==" 7.10.10
+|   |   |   TOK_IDENT "a" 7.10.9
+|   |   |   TOK_IDENT "b" 7.10.12

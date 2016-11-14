@@ -1,0 +1,37 @@
+96-unterminated.oc:5:12: warning: missing terminating " character
+96-unterminated.oc:6:10: warning: missing terminating ' character
+96-unterminated.oc:7:5: warning: missing terminating " character
+96-unterminated.oc:8:5: warning: missing terminating " character
+96-unterminated.oc:5:12: warning: missing terminating " character
+96-unterminated.oc:6:10: warning: missing terminating ' character
+96-unterminated.oc:7:5: warning: missing terminating " character
+96-unterminated.oc:8:5: warning: missing terminating " character
+oc: 96-unterminated.oc: 4: invalid source character (")
+oc: 96-unterminated.oc: 4: invalid source character (\)
+oc: 96-unterminated.oc: 4: invalid source character (")
+oc: 96-unterminated.oc: 5: invalid source character (")
+oc: 96-unterminated.oc: 7: invalid source character (")
+oc: 96-unterminated.oc: 7: invalid source character (\)
+oc: 96-unterminated.oc: 7: invalid source character (")
+oc: 96-unterminated.oc: 8: invalid source character (")
+oc: 96-unterminated.oc: 8: invalid source character (|)
+96-unterminated.oc:5:12: warning: missing terminating " character
+96-unterminated.oc:6:10: warning: missing terminating ' character
+96-unterminated.oc:7:5: warning: missing terminating " character
+96-unterminated.oc:8:5: warning: missing terminating " character
+oc: 96-unterminated.oc: 4: invalid source character (")
+oc: 96-unterminated.oc: 4: invalid source character (\)
+oc: 96-unterminated.oc: 4: syntax error, unexpected '*'
+oc: 96-unterminated.oc: 4: invalid source character (")
+oc: 96-unterminated.oc: 5: invalid source character (")
+oc: 96-unterminated.oc: 6: syntax error, unexpected $undefined
+oc: 96-unterminated.oc: 7: invalid source character (")
+oc: 96-unterminated.oc: 7: invalid source character (\)
+oc: 96-unterminated.oc: 7: invalid source character (")
+oc: 96-unterminated.oc: 8: invalid source character (")
+oc: 96-unterminated.oc: 8: invalid source character (|)
+oc: 96-unterminated.oc: 10: syntax error, unexpected TOK_INTCON, expecting TOK_ARRAY or TOK_IDENT
+96-unterminated.oc:5:12: warning: missing terminating " character
+96-unterminated.oc:6:10: warning: missing terminating ' character
+96-unterminated.oc:7:5: warning: missing terminating " character
+96-unterminated.oc:8:5: warning: missing terminating " character

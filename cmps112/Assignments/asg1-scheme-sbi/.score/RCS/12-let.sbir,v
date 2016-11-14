@@ -1,0 +1,44 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@;;File: 12-let.sb
+;;   1: # $Id: 12-let.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+;;   2: 
+;;   3: # Simple let without expressions.
+;;   4: 
+;;   5: 	let i = 6
+;;   6: 	print i
+;;   7: 	dim a(10)
+;;   8: 	let a(i) = 9
+;;   9: 	print a(i)
+(
+(    1          )
+(    2          )
+(    3          )
+(    4          )
+(    5          (let i 6))
+(    6          (print i))
+(    7          (dim (a 10)))
+(    8          (let (a i) 9))
+(    9          (print (a i)))
+)
+@

@@ -1,0 +1,66 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.29;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 40-sort-array.sb,v 1.1 2008-02-05 15:34:45-08 - - $
+#
+# sort numbers
+#
+# Input is a sequence of numbers ending with end of file.
+# User is assumed to have not more than 100 numbers.
+#
+	let size = 100
+	dim a( size )
+	let max = 0
+read:	input x
+	if inputcount = -1 goto eof
+	if inputcount < 1 goto error
+	let max = max + 1
+	let a( max ) = x
+	if max < size goto read
+eof:
+	print ""
+	print "unsorted"
+	let i = 1
+prtlp:	print "a(", i, ")=", a( i )
+	let i = i + 1
+	if i <= max goto prtlp
+	let i = max
+outer:	let j = 1 
+inner:	if a(j) <= a(j + 1 ) goto noswap
+	let t = a(j)
+	let a(j) = a(j+1)
+	let a(j+1)=t
+noswap:
+	let j = j + 1
+	if j <= i - 1 goto inner
+	let i = i - 1
+	if i >= 2 goto outer
+	print ""
+	print "sorted"
+	let i = 1
+sortlp:	print "a(", i, ")=", a( i )
+	let i = i + 1
+	if i <= max goto sortlp
+	goto stop
+error:	print "Invalid input"
+stop:
+@

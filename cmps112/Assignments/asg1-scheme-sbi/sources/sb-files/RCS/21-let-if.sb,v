@@ -1,0 +1,29 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 21-let-if.sb,v 1.1 2008-02-05 15:34:36-08 - - $
+#
+	let i = 1
+loop:	print i
+	let i = i + 1
+	if i <= 10 goto loop
+@

@@ -1,0 +1,6 @@
+partnercheck: ./PARTNER: format OK:
+user    = kfbustam
+uid     = 49591
+gecos   = Karol Josef Frigillano Bustamante
+home    = /afs/cats.ucsc.edu/users/i/kfbustam
+shell   = /bin/csh

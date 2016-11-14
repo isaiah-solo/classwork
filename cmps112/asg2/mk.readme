@@ -1,0 +1,5 @@
+#!/bin/sh
+# $Id: mk.readme,v 1.2 2015-10-09 18:23:35-07 - - $
+vi README.cat
+cid README.cat
+txt2html README.cat

@@ -1,0 +1,46 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@;;File: 11-let.sb
+;;   1: # $Id: 11-let.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+;;   2: #
+;;   3: # test let
+;;   4: #
+;;   5: 	let i = 1
+;;   6: 	let j = i + 3
+;;   7: 	let k = 8 * i + 9 / j
+;;   8: 	print "i=", i
+;;   9: 	print "j=", j
+;;  10: 	print "k=", k
+(
+(    1          )
+(    2          )
+(    3          )
+(    4          )
+(    5          (let i 1))
+(    6          (let j (+ i 3)))
+(    7          (let k (+ (* 8 i) (/ 9 j))))
+(    8          (print "i=" i))
+(    9          (print "j=" j))
+(   10          (print "k=" k))
+)
+@

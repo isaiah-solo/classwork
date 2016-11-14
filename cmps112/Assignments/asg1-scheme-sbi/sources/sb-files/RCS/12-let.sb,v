@@ -1,0 +1,32 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 12-let.sb,v 1.1 2008-02-05 15:34:36-08 - - $
+
+# Simple let without expressions.
+
+	let i = 6
+	print i
+	dim a(10)
+	let a(i) = 9
+	print a(i)
+@

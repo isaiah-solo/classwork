@@ -1,0 +1,134 @@
+head	1.2;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.2
+date	2014.10.29.21.27.26;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2011.04.09.03.15.20;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@-
+@
+text
+@$Id: SCORE,v 1.1 2011-04-08 20:15:20-07 - - $
+
+Grader:  copy this file into the student's directory and grade
+according to the following point values.  There are a max of 30
+points for the program and 30 points for the test run.  
+
+The numbers in parens are the max points for a particular section.
+Enter some number between 0 and the max depending on the quality
+of the work.
+
+________________________________________________________________________
+
+PROGRAM SOURCE CODE. (30)
+
+        (2) Run checksource.  Deduct 1 point per different
+            file complained about, but not more than 2 points.
+            checksource README *.scm >check.log
+            Score 0 for this item if all files are not *.scm.
+
+        (2) Look at the code.  Formatted reasonably?  Properly
+            indented?  Good choice of identifiers?
+
+        (3) Code to manage the label table.
+            Preliminary scan to create it.
+
+        (2) Code to implement the PRINT statement
+
+        (3) Code to implement the INPUT statement
+
+        (2) Code to implement the DIM statement
+
+        (3) Code to implement the LET statement
+
+        (3) Code to implement the IF statement
+
+        (2) Code to implement the GOTO statement
+
+        (3) code to evaluate operator expressions
+
+        (3) code to evaluate function calls and arrays from
+            the symbol table
+
+        (2) main statement evaluation loop uses tail recursion
+            in all cases
+
+total source code score:  /30
+Minimum score is 1 if the directory exists.
+
+________________________________________________________________________
+
+TEST RUN.  (30)
+
+        Record a score of zero to two points for each of the
+        following test programs.  Indicate why any point loss.
+        Add up the best 15 scores for a total max of 30, and
+        ignore the low score.
+
+            00-hello-world.sbir
+            01-1to10.sbir
+            02-exprs.sbir
+            10-exprs.sbir
+            11-let.sbir
+            12-let.sbir
+            20-goto.sbir
+            21-let-if.sbir
+            22-fibonacci.sbir
+            25-pi-e-fns.sbir
+            30-input-pi.sbir
+            31-big-o-.sbir
+            32-factorial.sbir
+            33-quadratic.sbir
+            40-sort-array.sbir
+            41-eratosthenes.sbir
+
+total test run score: /30
+
+________________________________________________________________________
+
+Add up the two numbers out of 30 and enter the score below at
+the end of the line that says SCORE=.  TOTAL SCORE ENTERED BELOW
+BETWEEN 1 and 60.  A score of 0 is used to indicate nothing was
+submitted.  If they submitted anything at all, it is worth at
+least 1 point.
+
+TOTALSCORE=
+
+If the student is doing pair programming verify that the partner's
+directory exists.  If not mkdir.  Then cp SCORE into it.  Also
+make sure the symlink PARTNER points in both directions.
+
+@
+
+
+1.1
+log
+@-
+@
+text
+@d1 1
+a1 1
+$Id: SCORE,v 1.5 2009-02-24 20:04:25-08 - - $
+a10 4
+If the class hierarchy is not exactly as specifid, that is OK.
+For example, Fn_sqrt might extend Function extending Expr, or it
+might extend Expr directly, etc.
+
+@

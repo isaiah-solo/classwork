@@ -1,0 +1,11 @@
+#!/bin/sh
+# $Id: mk.test,v 1.2 2016-10-21 15:12:27-07 - - $
+for test in *.in
+do
+   echo $0: $test starting.
+   base=`echo $test | sed 's/\.in$//'`
+   dc <$test >$base.dcout 2>&1
+   ocamldc <$test >$base.ocamldcout 2>&1
+   diff $base.dcout $base.ocamldcout
+   echo $0: $test finished.
+done

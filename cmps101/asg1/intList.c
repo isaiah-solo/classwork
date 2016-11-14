@@ -13,6 +13,7 @@ struct IntListNode
 };
 
 IntList temp = NULL;
+IntList temp_2 = NULL;
 const IntList intNil;
 
 int intFirst(IntList oldL)

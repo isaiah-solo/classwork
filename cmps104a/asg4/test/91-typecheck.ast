@@ -1,0 +1,130 @@
+TOK_ROOT "" 0.0.0
+|   TOK_VARDECL "=" 7.7.8
+|   |   TOK_INT "int" 7.7.0
+|   |   |   TOK_ARRAY "[]" 7.7.3
+|   |   |   TOK_DECLID "a" 7.7.6
+|   |   TOK_NULL "null" 7.7.10
+|   TOK_VARDECL "=" 7.8.14
+|   |   TOK_TYPEID "reference" 7.8.0
+|   |   |   TOK_ARRAY "[]" 7.8.9
+|   |   |   TOK_DECLID "a" 7.8.12
+|   |   TOK_NEWARRAY "new" 7.8.16
+|   |   |   TOK_STRING "string" 7.8.20
+|   |   |   TOK_INTCON "10" 7.8.27
+|   TOK_PROTOTYPE "" 7.9.0
+|   |   TOK_VOID "void" 7.9.0
+|   |   |   TOK_DECLID "foo" 7.9.5
+|   |   TOK_PARAMLIST "(" 7.9.9
+|   TOK_PROTOTYPE "" 7.10.0
+|   |   TOK_VOID "void" 7.10.0
+|   |   |   TOK_DECLID "foo" 7.10.5
+|   |   TOK_PARAMLIST "(" 7.10.9
+|   |   |   TOK_INT "int" 7.10.10
+|   |   |   |   TOK_DECLID "a" 7.10.14
+|   TOK_FUNCTION "" 7.11.0
+|   |   TOK_VOID "void" 7.11.0
+|   |   |   TOK_DECLID "foo" 7.11.5
+|   |   TOK_BLOCK "{" 7.11.28
+|   |   |   TOK_VARDECL "=" 7.11.35
+|   |   |   |   TOK_INT "int" 7.11.29
+|   |   |   |   |   TOK_DECLID "x" 7.11.33
+|   |   |   |   '+' "+" 7.11.39
+|   |   |   |   |   TOK_IDENT "a" 7.11.37
+|   |   |   |   |   TOK_IDENT "b" 7.11.41
+|   |   TOK_PARAMLIST "(" 7.11.9
+|   |   |   TOK_INT "int" 7.11.10
+|   |   |   |   TOK_ARRAY "[]" 7.11.13
+|   |   |   |   TOK_DECLID "a" 7.11.16
+|   |   |   |   TOK_INT "int" 7.11.19
+|   |   |   |   |   TOK_ARRAY "[]" 7.11.22
+|   |   |   |   |   TOK_DECLID "b" 7.11.25
+|   TOK_STRUCT "struct" 7.12.0
+|   |   TOK_TYPEID "foo" 7.12.7
+|   |   TOK_INT "int" 7.12.13
+|   |   |   TOK_FIELD "a" 7.12.17
+|   |   |   TOK_INT "int" 7.12.20
+|   |   |   |   TOK_FIELD "b" 7.12.24
+|   '+' "+" 7.14.2
+|   |   TOK_IDENT "a" 7.14.0
+|   |   TOK_IDENT "b" 7.14.4
+|   TOK_CALL "(" 7.15.2
+|   |   TOK_IDENT "f" 7.15.0
+|   TOK_CALL "(" 7.16.2
+|   |   TOK_IDENT "f" 7.16.0
+|   |   TOK_IDENT "x" 7.16.3
+|   |   |   '+' "+" 7.16.7
+|   |   |   |   TOK_IDENT "y" 7.16.6
+|   |   |   |   TOK_INTCON "3" 7.16.8
+|   |   |   TOK_IDENT "z" 7.16.11
+|   '+' "+" 7.17.4
+|   |   TOK_IDENT "foo" 7.17.0
+|   |   TOK_IDENT "bar" 7.17.6
+|   '=' "=" 7.18.2
+|   |   TOK_IDENT "a" 7.18.0
+|   |   '=' "=" 7.18.6
+|   |   |   TOK_IDENT "b" 7.18.4
+|   |   |   '=' "=" 7.18.10
+|   |   |   |   TOK_IDENT "c" 7.18.8
+|   |   |   |   TOK_IDENT "d" 7.18.12
+|   '=' "=" 7.19.5
+|   |   TOK_IDENT "test" 7.19.0
+|   |   '+' "+" 7.19.17
+|   |   |   '+' "+" 7.19.11
+|   |   |   |   TOK_IDENT "abc" 7.19.7
+|   |   |   |   TOK_IDENT "def" 7.19.13
+|   |   |   TOK_IDENT "ghi" 7.19.19
+|   '+' "+" 7.20.14
+|   |   '+' "+" 7.20.5
+|   |   |   TOK_IDENT "this" 7.20.0
+|   |   |   '*' "*" 7.20.10
+|   |   |   |   TOK_INTCON "23" 7.20.7
+|   |   |   |   TOK_IDENT "a" 7.20.12
+|   |   TOK_STRINGCON ""hello"" 7.20.16
+|   TOK_WHILE "while" 7.21.0
+|   |   TOK_LT "<" 7.21.9
+|   |   |   TOK_IDENT "a" 7.21.7
+|   |   |   TOK_IDENT "b" 7.21.11
+|   |   '=' "=" 7.21.16
+|   |   |   TOK_IDENT "f" 7.21.14
+|   |   |   '+' "+" 7.21.20
+|   |   |   |   TOK_IDENT "f" 7.21.18
+|   |   |   |   TOK_INTCON "1" 7.21.22
+|   TOK_RETURN "return" 7.22.0
+|   |   '+' "+" 7.22.9
+|   |   |   TOK_INTCON "3" 7.22.7
+|   |   |   TOK_INTCON "4" 7.22.11
+|   '=' "=" 7.23.5
+|   |   TOK_INDEX "[" 7.23.1
+|   |   |   TOK_IDENT "a" 7.23.0
+|   |   |   TOK_IDENT "i" 7.23.2
+|   |   TOK_INDEX "[" 7.23.8
+|   |   |   TOK_IDENT "b" 7.23.7
+|   |   |   TOK_IDENT "j" 7.23.9
+|   TOK_RETURNVOID "return" 7.24.0
+|   TOK_WHILE "while" 7.25.0
+|   |   TOK_TRUE "true" 7.25.7
+|   |   TOK_BLOCK "{" 7.25.13
+|   |   |   '=' "=" 7.25.16
+|   |   |   |   TOK_IDENT "a" 7.25.14
+|   |   |   |   TOK_INTCON "3" 7.25.18
+|   |   |   |   '=' "=" 7.25.23
+|   |   |   |   |   TOK_IDENT "b" 7.25.21
+|   |   |   |   |   TOK_INTCON "4" 7.25.25
+|   TOK_IF "if" 7.26.0
+|   |   TOK_EQ "==" 7.26.6
+|   |   |   TOK_IDENT "a" 7.26.4
+|   |   |   TOK_IDENT "b" 7.26.9
+|   |   TOK_CALL "(" 7.26.14
+|   |   |   TOK_IDENT "f" 7.26.12
+|   |   |   TOK_IDENT "x" 7.26.15
+|   TOK_IFELSE "if" 7.27.0
+|   |   TOK_NE "!=" 7.27.6
+|   |   |   TOK_IDENT "a" 7.27.4
+|   |   |   TOK_IDENT "b" 7.27.9
+|   |   TOK_CALL "(" 7.27.26
+|   |   |   TOK_IDENT "f" 7.27.24
+|   |   |   TOK_IDENT "y" 7.27.27
+|   |   |   |   TOK_IDENT "z" 7.27.30
+|   |   '=' "=" 7.27.14
+|   |   |   TOK_IDENT "y" 7.27.12
+|   |   |   TOK_INTCON "3" 7.27.16

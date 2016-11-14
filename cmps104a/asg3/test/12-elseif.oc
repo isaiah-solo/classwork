@@ -1,0 +1,11 @@
+// $Id: 12-elseif.oc,v 1.2 2012-12-03 13:21:16-08 - - $
+
+#include "oclib.oh"
+
+int a = 3;
+
+if (a == 1) puts ("one");
+else if (a == 2) puts ("two");
+else if (a == 3) puts ("three");
+else puts ("many");
+endl ();

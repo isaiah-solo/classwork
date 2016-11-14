@@ -1,0 +1,4 @@
+#!/bin/sh
+# $Id: mk.sbir.lis,v 1.2 2012-01-19 17:15:52-08 - - $
+cid + $0 sbi.scm .score/*.sbir
+mkpspdf sbir-files.ps sbi.scm .score/*.sbir

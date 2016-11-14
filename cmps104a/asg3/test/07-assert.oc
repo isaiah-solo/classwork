@@ -1,0 +1,4 @@
+// $Id: 07-assert.oc,v 1.2 2012-11-27 13:38:26-08 - - $
+
+#include "oclib.oh"
+assert ("null" == null);

@@ -1,0 +1,112 @@
+TOK_ROOT "" 0.0.0
+|   TOK_PROTOTYPE "" 12.23.0
+|   |   TOK_VOID "void" 12.23.0
+|   |   |   TOK_DECLID "__assert_fail" 12.23.5
+|   |   TOK_PARAMLIST "(" 12.23.19
+|   |   |   TOK_STRING "string" 12.23.20
+|   |   |   |   TOK_DECLID "expr" 12.23.27
+|   |   |   |   TOK_STRING "string" 12.23.33
+|   |   |   |   |   TOK_DECLID "file" 12.23.40
+|   |   |   |   TOK_INT "int" 12.23.46
+|   |   |   |   |   TOK_DECLID "line" 12.23.50
+|   TOK_PROTOTYPE "" 12.24.0
+|   |   TOK_VOID "void" 12.24.0
+|   |   |   TOK_DECLID "putb" 12.24.5
+|   |   TOK_PARAMLIST "(" 12.24.10
+|   |   |   TOK_BOOL "bool" 12.24.11
+|   |   |   |   TOK_DECLID "b" 12.24.16
+|   TOK_PROTOTYPE "" 12.25.0
+|   |   TOK_VOID "void" 12.25.0
+|   |   |   TOK_DECLID "putc" 12.25.5
+|   |   TOK_PARAMLIST "(" 12.25.10
+|   |   |   TOK_CHAR "char" 12.25.11
+|   |   |   |   TOK_DECLID "c" 12.25.16
+|   TOK_PROTOTYPE "" 12.26.0
+|   |   TOK_VOID "void" 12.26.0
+|   |   |   TOK_DECLID "puti" 12.26.5
+|   |   TOK_PARAMLIST "(" 12.26.10
+|   |   |   TOK_INT "int" 12.26.11
+|   |   |   |   TOK_DECLID "i" 12.26.15
+|   TOK_PROTOTYPE "" 12.27.0
+|   |   TOK_VOID "void" 12.27.0
+|   |   |   TOK_DECLID "puts" 12.27.5
+|   |   TOK_PARAMLIST "(" 12.27.10
+|   |   |   TOK_STRING "string" 12.27.11
+|   |   |   |   TOK_DECLID "s" 12.27.18
+|   TOK_PROTOTYPE "" 12.28.0
+|   |   TOK_VOID "void" 12.28.0
+|   |   |   TOK_DECLID "endl" 12.28.5
+|   |   TOK_PARAMLIST "(" 12.28.10
+|   TOK_PROTOTYPE "" 12.29.0
+|   |   TOK_INT "int" 12.29.0
+|   |   |   TOK_DECLID "getc" 12.29.4
+|   |   TOK_PARAMLIST "(" 12.29.9
+|   TOK_PROTOTYPE "" 12.30.0
+|   |   TOK_STRING "string" 12.30.0
+|   |   |   TOK_DECLID "getw" 12.30.7
+|   |   TOK_PARAMLIST "(" 12.30.12
+|   TOK_PROTOTYPE "" 12.31.0
+|   |   TOK_STRING "string" 12.31.0
+|   |   |   TOK_DECLID "getln" 12.31.7
+|   |   TOK_PARAMLIST "(" 12.31.13
+|   TOK_PROTOTYPE "" 12.32.0
+|   |   TOK_STRING "string" 12.32.0
+|   |   |   TOK_ARRAY "[]" 12.32.6
+|   |   |   TOK_DECLID "getargv" 12.32.9
+|   |   TOK_PARAMLIST "(" 12.32.17
+|   TOK_PROTOTYPE "" 12.33.0
+|   |   TOK_VOID "void" 12.33.0
+|   |   |   TOK_DECLID "exit" 12.33.5
+|   |   TOK_PARAMLIST "(" 12.33.10
+|   |   |   TOK_INT "int" 12.33.11
+|   |   |   |   TOK_DECLID "status" 12.33.15
+|   TOK_FUNCTION "" 13.8.0
+|   |   TOK_INT "int" 13.8.0
+|   |   |   TOK_DECLID "fibonacci" 13.8.4
+|   |   TOK_BLOCK "{" 13.8.22
+|   |   |   TOK_IF "if" 13.9.3
+|   |   |   |   TOK_LT "<" 13.9.9
+|   |   |   |   |   TOK_IDENT "n" 13.9.7
+|   |   |   |   |   TOK_INTCON "2" 13.9.11
+|   |   |   |   TOK_RETURN "return" 13.9.14
+|   |   |   |   |   TOK_IDENT "n" 13.9.21
+|   |   |   |   TOK_RETURN "return" 13.10.3
+|   |   |   |   |   '+' "+" 13.10.28
+|   |   |   |   |   |   TOK_CALL "(" 13.10.20
+|   |   |   |   |   |   |   TOK_IDENT "fibonacci" 13.10.10
+|   |   |   |   |   |   |   '-' "-" 13.10.23
+|   |   |   |   |   |   |   |   TOK_IDENT "n" 13.10.21
+|   |   |   |   |   |   |   |   TOK_INTCON "1" 13.10.25
+|   |   |   |   |   |   TOK_CALL "(" 13.10.40
+|   |   |   |   |   |   |   TOK_IDENT "fibonacci" 13.10.30
+|   |   |   |   |   |   |   '-' "-" 13.10.43
+|   |   |   |   |   |   |   |   TOK_IDENT "n" 13.10.41
+|   |   |   |   |   |   |   |   TOK_INTCON "2" 13.10.45
+|   |   TOK_PARAMLIST "(" 13.8.14
+|   |   |   TOK_INT "int" 13.8.15
+|   |   |   |   TOK_DECLID "n" 13.8.19
+|   TOK_VARDECL "=" 13.15.6
+|   |   TOK_INT "int" 13.15.0
+|   |   |   TOK_DECLID "n" 13.15.4
+|   |   TOK_INTCON "0" 13.15.8
+|   TOK_WHILE "while" 13.16.0
+|   |   TOK_LT "<" 13.16.9
+|   |   |   TOK_IDENT "n" 13.16.7
+|   |   |   TOK_INTCON "10" 13.16.11
+|   |   TOK_BLOCK "{" 13.16.15
+|   |   |   TOK_CALL "(" 13.17.8
+|   |   |   |   TOK_IDENT "puts" 13.17.3
+|   |   |   |   TOK_STRINGCON ""fibonacci("" 13.17.9
+|   |   |   |   TOK_CALL "(" 13.18.8
+|   |   |   |   |   TOK_IDENT "puti" 13.18.3
+|   |   |   |   |   TOK_IDENT "n" 13.18.9
+|   |   |   |   TOK_CALL "(" 13.19.8
+|   |   |   |   |   TOK_IDENT "puts" 13.19.3
+|   |   |   |   |   TOK_STRINGCON "" = "" 13.19.9
+|   |   |   |   TOK_CALL "(" 13.20.8
+|   |   |   |   |   TOK_IDENT "puti" 13.20.3
+|   |   |   |   |   TOK_CALL "(" 13.20.19
+|   |   |   |   |   |   TOK_IDENT "fibonacci" 13.20.9
+|   |   |   |   |   |   TOK_IDENT "n" 13.20.20
+|   |   |   |   TOK_CALL "(" 13.21.8
+|   |   |   |   |   TOK_IDENT "endl" 13.21.3

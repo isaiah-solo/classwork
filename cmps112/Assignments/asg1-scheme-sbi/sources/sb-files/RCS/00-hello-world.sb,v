@@ -1,0 +1,28 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 00-hello-world.sb,v 1.1 2008-02-05 15:34:35-08 - - $
+#
+# Classic Hello World program.
+#
+print "Hello, World!"
+@

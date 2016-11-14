@@ -1,0 +1,15 @@
+# $Id: README,v 1.1 2009-02-03 17:24:36-08 - - $
+
+NAME
+   sbtran - translator from SB to SBIR
+
+SYNOPSIS
+   sbtran sbsource >sbirobject
+
+DESCRIPTION
+   The sbtran utility translate Silly Basic source code into 
+   Silly Basic Intermediate Representation, which looks like
+   Scheme.  You do not need to understand scanning, parsing,
+   or O'Caml to use this.  See the SBIR sources in another
+   directory.
+

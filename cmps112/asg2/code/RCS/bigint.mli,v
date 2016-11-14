@@ -1,0 +1,38 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2011.04.26.20.39.18;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@(* $Id: bigint.mli,v 1.1 2009-02-20 20:07:25-08 - - $ *)
+
+module Bigint : sig
+   type bigint
+   val bigint_of_string : string -> bigint
+   val string_of_bigint : bigint -> string
+   val add : bigint -> bigint -> bigint
+   val sub : bigint -> bigint -> bigint
+   val mul : bigint -> bigint -> bigint
+   val div : bigint -> bigint -> bigint
+   val rem : bigint -> bigint -> bigint
+   val pow : bigint -> bigint -> bigint
+   val zero : bigint
+end
+
+@

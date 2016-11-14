@@ -1,0 +1,60 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@;;File: 22-fibonacci.sb
+;;   1: # $Id: 22-fibonacci.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+;;   2: #
+;;   3: # Print out all Fibonacci numbers up to max.
+;;   4: #
+;;   5: 	let max = 10^6
+;;   6: 
+;;   7: 	let fib0 = 0
+;;   8: 	let fib1 = 1
+;;   9: 	print "fib(", 0, ")=", fib0
+;;  10: 	print "fib(", 1, ")=", fib1
+;;  11: 	let i=1
+;;  12: loop:	let fib = fib0 + fib1
+;;  13: 	let i=i+1
+;;  14: 	print "fib(", i, ")=", fib
+;;  15: 	let fib0 = fib1
+;;  16: 	let fib1 = fib
+;;  17: 	if fib <= max goto loop
+(
+(    1          )
+(    2          )
+(    3          )
+(    4          )
+(    5          (let max (^ 10 6)))
+(    6          )
+(    7          (let fib0 0))
+(    8          (let fib1 1))
+(    9          (print "fib(" 0 ")=" fib0))
+(   10          (print "fib(" 1 ")=" fib1))
+(   11          (let i 1))
+(   12 loop     (let fib (+ fib0 fib1)))
+(   13          (let i (+ i 1)))
+(   14          (print "fib(" i ")=" fib))
+(   15          (let fib0 fib1))
+(   16          (let fib1 fib))
+(   17          (if (<= fib max) loop))
+)
+@

@@ -1,0 +1,67 @@
+Isaiah Solomon
+icsolomo
+
+My program, graph04, takes in an input file that has its first line containing the amount
+of allocated space given for the array, and the rest of the lines containing the numbers 
+to go in the lists in the array.  You run the program by typing "graph" followed by a 
+space, followed by either -P or -D, followed by a starting vertex, and the name of the 
+file, or a "-" to recieve input from stdin. To print the output of stdin, press ctrl-D.
+
+My program is used to take an adjacency list and implement Prim's Minimum Spanning Tree
+algorithm (MST) and execute Dijkstra's Shortest-Path algorithm (SSSP).
+
+loadWgtGraph.c:
+
+This file contains the functions that create the graph for graph04. It also contains a fix
+graph function
+
+loadWgtGraph.h:
+
+This file contains the prototypes for the functions in loadWgtGraph.c. It also contains the 
+pre and post conditions.
+
+minPQ.c:
+
+This file contains the functions listed in MinPQ.c. Some of the functions listed are: 
+access functions which are isEmptyPQ, getMin, getStatus, getParent, and getPriority
+
+minPQ.h:
+
+This file contains the prototypes for the functions in minPQ.c. It also contains the 
+pre and post conditions.
+
+edgeList.c:
+
+This file contains the functions listed in edgeList.c. Some of the functions listed are: 
+edgeFirst, which returns the first int in the list; edgeRest, which returns the rest of the
+list not including the first, which is free'd; and edgeCons, which basically adds a new 
+element to the EdgeList.
+
+edgeList.h:
+
+This file contains the prototypes for the functions in edgeList.c. It also contains the 
+pre and post conditions.
+
+graph04.c:
+
+This file calls all the functions from the header files and uses them to do the purpose 
+of the assignment. It mainly holds aesthetic purposes in the main. It also contains the
+greedyTree function and updating fringe functions. It also has a print function.
+
+Makefile:
+
+This file is what is used to compile all the *.h and *.c files together to make an
+executable.
+
+test0.in:
+
+This test file is basically used to test the program's functionality to see if it is
+working properly.
+
+test1.in:
+
+This test file is used to see what happens if given a graph with 1 element.
+
+test2.in:
+
+This test file is used to see what happens if given a graph with a lot of tree edges.

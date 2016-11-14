@@ -1,0 +1,36 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2009.02.04.01.37.28;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@# $Id: 02-exprs.sb,v 1.1 2008-02-05 15:34:35-08 - - $
+#
+# some expressions using print
+
+	print "1+1      = ", 1+1
+        print "2-2      = ", 2- 2
+        print "3*3      = ", 3*3
+
+	print
+
+        print "4/9      = ", 4/9
+        print "3*4+5*6  = ", 3*4+5*6
+
+@

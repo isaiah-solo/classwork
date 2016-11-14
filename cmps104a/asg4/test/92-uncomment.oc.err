@@ -1,0 +1,5 @@
+92-uncomment.oc:1:1: error: unterminated comment
+92-uncomment.oc:1:1: error: unterminated comment
+92-uncomment.oc:1:1: error: unterminated comment
+92-uncomment.oc:1:1: error: unterminated comment
+/usr/bin/cpp  92-uncomment.oc: status 0x0200, exit 2

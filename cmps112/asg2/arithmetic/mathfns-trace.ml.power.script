@@ -1,0 +1,52 @@
+bash-1$ ocaml
+        OCaml version 4.02.1
+
+# #use "mathfns-trace.ml";;
+val even : int -> bool = <fun>
+val frexp' : float -> float * int = <fun>
+val ldexp' : float * int -> float = <fun>
+val power' : float * int * float -> float = <fun>
+val power : float * int -> float = <fun>
+val sqrt' : float * float -> float = <fun>
+val sqrt : float -> float = <fun>
+power is now traced.
+power' is now traced.
+sqrt is now traced.
+frexp' is now traced.
+ldexp' is now traced.
+sqrt' is now traced.
+# power (2., 12);;
+power <-- (2., 12)
+power' <-- (2., 12, 1.)
+power' <-- (4., 6, 1.)
+power' <-- (16., 3, 1.)
+power' <-- (16., 2, 16.)
+power' <-- (256., 1, 16.)
+power' <-- (256., 0, 4096.)
+power' --> 4096.
+power' --> 4096.
+power' --> 4096.
+power' --> 4096.
+power' --> 4096.
+power' --> 4096.
+power --> 4096.
+- : float = 4096.
+# power (11., 11);;
+power <-- (11., 11)
+power' <-- (11., 11, 1.)
+power' <-- (11., 10, 11.)
+power' <-- (121., 5, 11.)
+power' <-- (121., 4, 1331.)
+power' <-- (14641., 2, 1331.)
+power' <-- (214358881., 1, 1331.)
+power' <-- (214358881., 0, 285311670611.)
+power' --> 285311670611.
+power' --> 285311670611.
+power' --> 285311670611.
+power' --> 285311670611.
+power' --> 285311670611.
+power' --> 285311670611.
+power' --> 285311670611.
+power --> 285311670611.
+- : float = 285311670611.
+# 

@@ -1,0 +1,20 @@
+Isaiah Solomon
+icsolomo
+
+My program, graph01, takes in an input file that has its first line containing the amount
+of allocated space given for the array, and the rest of the lines containing the numbers 
+to go in the lists in the array.  You run the program by typing "graph01" followed by a 
+space and the name of the file, or a "-" to recieve input from stdin. To print the 
+output of stdin, press ctrl-D.
+
+I have 3 test files. "test0.in" just tests to see if the nulls and entries are put into the
+list. "test1.in" tests to see if multiple entries are put into each spot in the array.
+"test2.in" tests how the program handles zeroes.
+
+intList.c
+intList.h
+graph01.c
+Makefile
+test0.in
+test1.in
+test2.in

@@ -1,0 +1,51 @@
+Isaiah Solomon
+icsolomo
+
+My program, scc03, takes in an input file that has its first line containing the amount
+of allocated space given for the array, and the rest of the lines containing the numbers 
+to go in the lists in the array.  You run the program by typing "scc03" followed by a 
+space and the name of the file, or a "-" to recieve input from stdin. To print the 
+output of stdin, press ctrl-D.
+
+My program is used to take an adjacency list and use dfs trace to traverse through the
+list and find the discovery and finish times, the stack, and the parents. Then using the
+transpose of the list, you find the discovery and finish times, the parents, and finally
+the dfst roots, which are used to find the SCC's.
+
+
+intList.c:
+
+This file contains the functions listed in intList.c. Some of the functions listed are: 
+intFirst, which returns the first int in the list; intRest, which returns the rest of the
+list not including the first, which is free'd; and intCons, which basically adds a new 
+element to the IntList.
+
+intList.h:
+
+This file contains the prototypes for the functions in intList.c. It also contains the 
+pre and post conditions.
+
+scc03.c:
+
+This file calls all the functions from the header files and uses them to do the purpose 
+of the assignment. It mainly holds aesthetic purposes in the main. It also contains the
+functions transposeGraph, which creates the transpose of the given graph, and hasCycle 
+and hasCycleLen, which work together to find a cycle within the graph.
+
+Makefile:
+
+This file is what is used to compile all the *.h and *.c files together to make an
+executable.
+
+test0.in:
+
+This test file is basically used to test the program's functionality to see if it is
+working properly.
+
+test1.in:
+
+This test file is used to see what happens if given a graph with 1 element.
+
+test2.in:
+
+This test file is used to see what happens if given a graph with a lot of tree edges.

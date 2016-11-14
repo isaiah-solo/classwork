@@ -1,0 +1,41 @@
+
+Scheme links:
+
+http://www.schemers.org/Documents/Standards/R5RS/
+. Revised(5) Report on the Algorithmic Language Scheme.
+
+http://www.ccs.neu.edu/home/dorai/t-y-scheme/t-y-scheme.html
+http://download.plt-scheme.org/doc/205/pdf/t-y-scheme.pdf
+. Teach Yourself Scheme in Fixnum Days
+. -- Dorai Sitaram
+
+http://racket-lang.org/
+. MzScheme home page.
+
+http://www.scheme.com/tspl2d/
+. The Scheme Programming Language, 2nd ed.
+. -- R. Kent Dybvig.
+. Prentice Hall PTR, 1996.
+
+http://www.htus.org/
+. How to Use Scheme - ... PLT Scheme
+. -- Felleisen, Findler, Flatt, Krishnamurthi, Steckler.
+
+http://www.htdp.org/
+. How to Design Programs, September 2003 version.
+. -- Felleisen, Findler, Flatt, Krishnamurthi.
+
+http://www.schemers.org/
+. Schemers.org
+
+http://mitpress.mit.edu/sicp/sicp.html
+. Structure and Interpretation of Computer Programs,
+. -- Hal Abelson, Jerry Sussman, Julie Sussman.
+. MIT Press, 1984.
+
+http://www-formal.stanford.edu/jmc/recursive.html
+. Recursive Functions of Symbolic Expressions and their Computation
+. by Machine, Part I.
+. -- John McCarthy, CACM, April 1960.
+
+$Id: README.text,v 1.2 2014-10-31 17:46:34-07 - - $

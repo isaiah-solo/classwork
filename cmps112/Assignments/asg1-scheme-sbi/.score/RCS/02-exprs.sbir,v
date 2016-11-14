@@ -1,0 +1,52 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@;;File: 02-exprs.sb
+;;   1: # $Id: 02-exprs.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+;;   2: #
+;;   3: # some expressions using print
+;;   4: 
+;;   5: 	print "1+1      = ", 1+1
+;;   6:         print "2-2      = ", 2- 2
+;;   7:         print "3*3      = ", 3*3
+;;   8: 
+;;   9: 	print
+;;  10: 
+;;  11:         print "4/9      = ", 4/9
+;;  12:         print "3*4+5*6  = ", 3*4+5*6
+;;  13: 
+(
+(    1          )
+(    2          )
+(    3          )
+(    4          )
+(    5          (print "1+1      = " (+ 1 1)))
+(    6          (print "2-2      = " (- 2 2)))
+(    7          (print "3*3      = " (* 3 3)))
+(    8          )
+(    9          (print))
+(   10          )
+(   11          (print "4/9      = " (/ 4 9)))
+(   12          (print "3*4+5*6  = " (+ (* 3 4) (* 5 6))))
+(   13          )
+)
+@

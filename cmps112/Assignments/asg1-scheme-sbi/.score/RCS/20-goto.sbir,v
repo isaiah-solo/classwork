@@ -1,0 +1,54 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2012.01.20.01.13.35;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@;;File: 20-goto.sb
+;;   1: # $Id: 20-goto.sb,v 1.1 2009-02-03 17:37:28-08 - - $
+;;   2: #
+;;   3: 	goto zero
+;;   4: four:	print "four"
+;;   5: 	goto done
+;;   6: one:	print "one"
+;;   7: 	goto two
+;;   8: three:	print "three"
+;;   9: 	goto four
+;;  10: two:	print "two"
+;;  11: 	goto three
+;;  12: zero:	print "zero"
+;;  13: 	goto one
+;;  14: done:
+(
+(    1          )
+(    2          )
+(    3          (goto zero))
+(    4 four     (print "four"))
+(    5          (goto done))
+(    6 one      (print "one"))
+(    7          (goto two))
+(    8 three    (print "three"))
+(    9          (goto four))
+(   10 two      (print "two"))
+(   11          (goto three))
+(   12 zero     (print "zero"))
+(   13          (goto one))
+(   14 done     )
+)
+@

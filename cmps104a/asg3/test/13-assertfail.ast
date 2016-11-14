@@ -1,0 +1,94 @@
+TOK_ROOT "" 0.0.0
+|   TOK_PROTOTYPE "" 12.23.0
+|   |   TOK_VOID "void" 12.23.0
+|   |   |   TOK_DECLID "__assert_fail" 12.23.5
+|   |   TOK_PARAMLIST "(" 12.23.19
+|   |   |   TOK_STRING "string" 12.23.20
+|   |   |   |   TOK_DECLID "expr" 12.23.27
+|   |   |   |   TOK_STRING "string" 12.23.33
+|   |   |   |   |   TOK_DECLID "file" 12.23.40
+|   |   |   |   TOK_INT "int" 12.23.46
+|   |   |   |   |   TOK_DECLID "line" 12.23.50
+|   TOK_PROTOTYPE "" 12.24.0
+|   |   TOK_VOID "void" 12.24.0
+|   |   |   TOK_DECLID "putb" 12.24.5
+|   |   TOK_PARAMLIST "(" 12.24.10
+|   |   |   TOK_BOOL "bool" 12.24.11
+|   |   |   |   TOK_DECLID "b" 12.24.16
+|   TOK_PROTOTYPE "" 12.25.0
+|   |   TOK_VOID "void" 12.25.0
+|   |   |   TOK_DECLID "putc" 12.25.5
+|   |   TOK_PARAMLIST "(" 12.25.10
+|   |   |   TOK_CHAR "char" 12.25.11
+|   |   |   |   TOK_DECLID "c" 12.25.16
+|   TOK_PROTOTYPE "" 12.26.0
+|   |   TOK_VOID "void" 12.26.0
+|   |   |   TOK_DECLID "puti" 12.26.5
+|   |   TOK_PARAMLIST "(" 12.26.10
+|   |   |   TOK_INT "int" 12.26.11
+|   |   |   |   TOK_DECLID "i" 12.26.15
+|   TOK_PROTOTYPE "" 12.27.0
+|   |   TOK_VOID "void" 12.27.0
+|   |   |   TOK_DECLID "puts" 12.27.5
+|   |   TOK_PARAMLIST "(" 12.27.10
+|   |   |   TOK_STRING "string" 12.27.11
+|   |   |   |   TOK_DECLID "s" 12.27.18
+|   TOK_PROTOTYPE "" 12.28.0
+|   |   TOK_VOID "void" 12.28.0
+|   |   |   TOK_DECLID "endl" 12.28.5
+|   |   TOK_PARAMLIST "(" 12.28.10
+|   TOK_PROTOTYPE "" 12.29.0
+|   |   TOK_INT "int" 12.29.0
+|   |   |   TOK_DECLID "getc" 12.29.4
+|   |   TOK_PARAMLIST "(" 12.29.9
+|   TOK_PROTOTYPE "" 12.30.0
+|   |   TOK_STRING "string" 12.30.0
+|   |   |   TOK_DECLID "getw" 12.30.7
+|   |   TOK_PARAMLIST "(" 12.30.12
+|   TOK_PROTOTYPE "" 12.31.0
+|   |   TOK_STRING "string" 12.31.0
+|   |   |   TOK_DECLID "getln" 12.31.7
+|   |   TOK_PARAMLIST "(" 12.31.13
+|   TOK_PROTOTYPE "" 12.32.0
+|   |   TOK_STRING "string" 12.32.0
+|   |   |   TOK_ARRAY "[]" 12.32.6
+|   |   |   TOK_DECLID "getargv" 12.32.9
+|   |   TOK_PARAMLIST "(" 12.32.17
+|   TOK_PROTOTYPE "" 12.33.0
+|   |   TOK_VOID "void" 12.33.0
+|   |   |   TOK_DECLID "exit" 12.33.5
+|   |   TOK_PARAMLIST "(" 12.33.10
+|   |   |   TOK_INT "int" 12.33.11
+|   |   |   |   TOK_DECLID "status" 12.33.15
+|   TOK_CALL "(" 13.6.5
+|   |   TOK_IDENT "puts" 13.6.0
+|   |   TOK_INDEX "[" 13.6.15
+|   |   |   TOK_CALL "(" 13.6.13
+|   |   |   |   TOK_IDENT "getargv" 13.6.6
+|   |   |   TOK_INTCON "0" 13.6.16
+|   TOK_CALL "(" 13.7.5
+|   |   TOK_IDENT "puts" 13.7.0
+|   |   TOK_STRINGCON "" was compiled "" 13.7.6
+|   TOK_CALL "(" 13.8.5
+|   |   TOK_IDENT "puts" 13.8.0
+|   |   TOK_STRINGCON ""Nov  7 2015"" 13.8.6
+|   TOK_CALL "(" 13.9.5
+|   |   TOK_IDENT "puts" 13.9.0
+|   |   TOK_STRINGCON "" @ "" 13.9.6
+|   TOK_CALL "(" 13.10.5
+|   |   TOK_IDENT "puts" 13.10.0
+|   |   TOK_STRINGCON ""02:57:30"" 13.10.6
+|   TOK_CALL "(" 13.11.5
+|   |   TOK_IDENT "endl" 13.11.0
+|   TOK_BLOCK "{" 13.12.0
+|   |   TOK_IF "if" 13.12.1
+|   |   |   '!' "!" 13.12.5
+|   |   |   |   TOK_EQ "==" 13.12.16
+|   |   |   |   |   TOK_STRINGCON ""assert"" 13.12.7
+|   |   |   |   |   TOK_STRINGCON ""fail"" 13.12.19
+|   |   |   TOK_CALL "(" 13.12.42
+|   |   |   |   TOK_IDENT "__assert_fail" 13.12.28
+|   |   |   |   TOK_STRINGCON ""\"assert\" == \"fail\""" 13.12.43
+|   |   |   |   |   TOK_STRINGCON ""13-assertfail.oc"" 13.12.69
+|   |   |   |   |   TOK_INTCON "12" 13.12.89
+|   ';' ";" 13.12.94

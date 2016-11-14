@@ -1,0 +1,80 @@
+// edfile.java
+// Template for a line-oriented text editor inspired by ed.
+
+import java.util.Scanner;
+import java.io.*;
+import static java.lang.System.*;
+
+class edfile{
+	static String[] fileStuff = new String[10];
+	public static void main (String[] args) throws IOException {
+		System.out.println("\n" + "~~~~ Welcome to the Doubly-Linked List! ~~~~" + "\n");
+		if (args.length > 0) readFile(args);
+		boolean want_echo = true;
+		dllist lines = new dllist ();
+		auxlib.STUB ("Check for -e option");
+		auxlib.STUB ("Load file from args filename, if any.");
+		Scanner stdin = new Scanner (in);
+		for (;;) {
+			if (! stdin.hasNextLine()) break;
+			String inputline = stdin.nextLine();
+			if (want_echo) out.printf ("%s%n", inputline);
+			if (inputline.matches ("^\\s*$")) continue;
+			char command = inputline.charAt(0);
+			switch (command) {
+				case '#':
+				    for (int i = 0; i < 10; i++) System.out.println(fileStuff[i]);
+				    break;
+				case '$':
+				    lines.setPosition(dllist.LAST);
+				    break;
+				case '*':
+				    auxlib.STUB ("Call * command function.");
+				    break;
+				case '.':
+				    auxlib.STUB ("Call . command function.");
+				    break;
+				case '0':
+				    auxlib.STUB ("Call 0 command function.");
+				    break;
+				case '<':
+				    auxlib.STUB ("Call < command function.");
+				    break;
+				case '>':
+				    auxlib.STUB ("Call > command function.");
+				    break;
+				case 'a':
+				    auxlib.STUB ("Call a command function.");
+				    break;
+				case 'd':
+				    auxlib.STUB ("Call d command function.");
+				    break;
+				case 'i':
+				    auxlib.STUB ("Call i command function.");
+				    break;
+				case 'r':
+				    auxlib.STUB ("Call r command function.");
+				    break;
+				case 'w':
+				    auxlib.STUB ("Call w command function.");
+				    break;
+				default :
+				    auxlib.STUB ("Print invalid command.");
+				    break;
+			}
+		}
+		auxlib.STUB ("(eof)");
+	}
+	
+	public static void readFile (String[] args) throws IOException {
+		int counter = 0;
+		BufferedReader input = new BufferedReader(new FileReader(args[0]));
+		while (true) {
+			String line = input.readLine();
+			if (line == null) break;
+			fileStuff[counter] = line;
+			counter++;
+		}
+	}
+}
+
