@@ -206,18 +206,18 @@ Tree
 
 Leaf subclass: Tree [
     |left right|
-    Tree class >> new: newChar count: newCount left: aLeft right: aRight [
+    Tree class >> new: newChar count: newCount left: newLeft right: newRight [
         |result|
         result := super new: newChar count: newCount.
-        result setLeft: aLeft andRight: aRight.
+        result setLeft: newLeft andRight: newRight.
         ^ result
     ]
 
     isLeaf [ ^ false ]
 
-    setLeft: aLeft andRight: aRight [
-        left := aLeft.
-        right := aRight.
+    setLeft: newLeft andRight: newRight [
+        left := newLeft.
+        right := newRight.
     ]
     right [ ^ right ]
     left [ ^ left ]
