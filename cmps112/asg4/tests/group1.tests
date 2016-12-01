@@ -1,0 +1,7 @@
+write('$Id: group1.tests,v 1.2 2016-11-21 14:06:16-08 - - $'), nl.
+[database].
+[functions].
+fly(lax,mia), !.
+fly(sea,bos), !.
+fly(bos,chi), !.
+fly(sjc,dfw), !.
