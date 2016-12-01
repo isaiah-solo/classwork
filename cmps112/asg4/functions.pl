@@ -4,33 +4,32 @@
 not(X) :- X, !, fail.
 not(_).
 
-degmin_to_deg(degmin(Degrees, Minutes), Degreesonly) :-
-   Degreesonly is Degrees + Minutes / 60.
+degmin_to_degs(degmin(Degrees, Minutes), DegreesOnly) :-
+   DegreesOnly is Degrees + Minutes / 60.
 
 pythagoras(X1, Y1, X2, Y2, Hypotenuse) :-
    DeltaX is X1 - X2,
    DeltaY is Y1 - Y2,
    Hypotenuse is sqrt(DeltaX * DeltaX + DeltaY * DeltaY).
 
-distance(Airport1, Airport2, DistanceMiles) :-
-   airport(Airport1, _, Latitude1, Longitude1),
-   airport(Airport2, _, Latitude2, Longitude2),
-   degmin_to_deg(Latitude1, Latdegrees1),
-   degmin_to_deg(Latitude2, Latdegrees2),
-   degmin_to_deg(Longitude1, Longdegrees1),
-   degmin_to_deg(Longitude2, Longdegrees2),
-   pythagoras(Latdegrees1, Longdegrees1, Latdegrees2, Longdegrees2,
-               DistanceDegrees),
-   DistanceMiles is 69 * DistanceDegrees.
+distance(Airport1, Airport2, Miles) :-
+   airport(Airport1, _, LatDeg1, LonDeg1),
+   airport(Airport2, _, LatDeg2, LonDeg2),
+   degmin_to_degs(LatDeg1, Lat1),
+   degmin_to_degs(LatDeg2, Lat2),
+   degmin_to_degs(LonDeg1, Lon1),
+   degmin_to_degs(LonDeg2, Lon2),
+   pythagoras(Lat1, Lon1, Lat2, Lon2, Degrees),
+   Miles is 69 * Degrees.
 
-flight_time(Airport1, Airport2, FlightTime) :-
-   distance(Airport1, Airport2, DistanceMiles),
-   FlightTime is DistanceMiles / 500.
+flight_time(Airport1, Airport2, Time) :-
+   distance(Airport1, Airport2, Miles),
+   Time is Miles / 500.
 
 arrival_time(flight(Airport1, Airport2, time(DH,DM)), ArrivalTime) :-
-   flight_time(Airport1, Airport2, FlightTime),
-   hoursmins_to_hours(time(DH,DM), DepartureTime),
-   ArrivalTime is DepartureTime + FlightTime.
+   flight_time(Airport1, Airport2, Time),
+   time_to_hours(time(DH,DM), DepartureTime),
+   ArrivalTime is DepartureTime + Time.
 
 mins_to_hours(Mins, Hours):-
    Hours is Mins / 60.
@@ -38,126 +37,126 @@ mins_to_hours(Mins, Hours):-
 hours_to_mins(Mins, Hours) :-
    Mins is Hours * 60.
 
-hoursmins_to_hours(time(Hours, Mins) , Hoursonly) :-
-   Hoursonly is Hours + Mins / 60.
+time_to_hours(time(Hours, Mins) , InHours) :-
+   InHours is Hours + Mins / 60.
 
-print_2digits(Digits) :-
+print_digits(Digits) :-
    Digits < 10, print(0), print(Digits).
 
-print_2digits(Digits) :-
-   Digits >= 10, print( Digits ).
+print_digits(Digits) :-
+   Digits >= 10, print(Digits).
 
-print_time(Hoursonly) :-
-   Minsonly is floor(Hoursonly * 60),
-   Hours is Minsonly // 60,
-   Mins is Minsonly mod 60,
-   print_2digits(Hours),
+print_time(InHours) :-
+   InMins is floor(InHours * 60),
+   Hours is InMins // 60,
+   Mins is InMins mod 60,
+   print_digits(Hours),
    print(':'),
-   print_2digits(Mins).
+   print_digits(Mins).
 
-writepath([]).
+write_path([]).
 
-writepath([flight(Depart,Arrive,DTimeHM)|List]) :-
-   airport( Depart, Depart_name, _, _ ),
-   airport( Arrive, Arrive_name, _, _),
-   hoursmins_to_hours(DTimeHM, DepartTime),
+write_path([flight(Depart,Arrive,DTimeHM)|List]) :-
+   airport(Depart, Depart_name, _, _),
+   airport(Arrive, Arrive_name, _, _),
+   time_to_hours(DTimeHM, DepartTime),
    arrival_time(flight(Depart,Arrive,DTimeHM), ArrivalTime),
-   write('depart  '), write( Depart ), 
-      write('  '), write( Depart_name ), 
-      write('  '), print_time( DepartTime),
+   write('depart  '), write(Depart), 
+      write('  '), write(Depart_name), 
+      write('  '), print_time(DepartTime),
    nl,
-   write('arrive  '), write( Arrive ), 
-      write('  '), write( Arrive_name ), 
-      write('  '), print_time( ArrivalTime),
+   write('arrive  '), write(Arrive), 
+      write('  '), write(Arrive_name), 
+      write('  '), print_time(ArrivalTime),
    nl,
-   writepath( List ). 
+   write_path(List). 
 
-sanetime(H1, T2) :-
-   hoursmins_to_hours(T2, H2),
+safe_time(H1, T2) :-
+   time_to_hours(T2, H2),
    hours_to_mins(M1, H1),
    hours_to_mins(M2, H2),
    M1 + 29 < M2.
 
-sanearrival(flight(Dep,Arriv,DepTime)) :-
-   arrival_time(flight(Dep,Arriv,DepTime), ArrivTime),
+safe_arrival(flight(Dep, Arriv, DepTime)) :-
+   arrival_time(flight(Dep, Arriv, DepTime), ArrivTime),
    ArrivTime < 24.
 
-listpath( Node, End, [flight(Node, Next, NDep)|Outlist] ) :-
+path(Node, End, [flight(Node, Next, NextDep)|Outlist]) :-
    not(Node = End), 
-   flight(Node, Next, NDep),
-   listpath( Next, End, [flight(Node, Next, NDep)], Outlist ).
+   flight(Node, Next, NextDep),
+   path(Next, End, [flight(Node, Next, NextDep)], Outlist).
 
-listpath( Node, Node, _, [] ).
+path(Node, Node, _, []).
 
-listpath( Node, End,
-   [flight(PDep,PArr,PDepTime)|Tried], 
-   [flight(Node, Next, NDep)|List] ) :-
-   flight(Node, Next, NDep),
-   arrival_time(flight(PDep,PArr,PDepTime), PArriv), .
-   sanetime(PArriv, NDep), 
-   sanearrival(flight(Node,Next,NDep)),
-   Tried2 = append([flight(PDep,PArr,PDepTime)], Tried),
-   not( member( Next, Tried2 )), 
-   not(Next = PArr),
-   listpath( Next, End, 
-   [flight(Node, Next, NDep)|Tried2], 
-      List ). 
+path(Node, End,
+   [flight(PreDep,PreArr,PreDepTime)|Tried], 
+   [flight(Node, Next, NextDep)|List]) :-
+   flight(Node, Next, NextDep),
+   arrival_time(flight(PreDep,PreArr,PreDepTime), PreArriv), .
+   safe_time(PreArriv, NextDep), 
+   safe_arrival(flight(Node, Next, NextDep)),
+   Tried2 = append([flight(PreDep, PreArr, PreDepTime)], Tried),
+   not(member(Next, Tried2)), 
+   not(Next = PreArr),
+   path(Next, End, 
+   [flight(Node, Next, NextDep)|Tried2], 
+      List). 
 
-traveltime([flight(Dep, Arr, DTimeHM)|List], Length) :-
+travel([flight(Dep, Arr, DTimeHM)|List], Length) :-
    length(List, 0),
-   hoursmins_to_hours(DTimeHM,DTimeH), 
+   time_to_hours(DTimeHM,DTimeH), 
    arrival_time(flight(Dep, Arr, DTimeHM), ArrivalTime),
    Length is ArrivalTime - DTimeH.
 
-traveltime([flight(Dep, Arr, DTimeHM)|List], Length) :-
+travel([flight(Dep, Arr, DTimeHM)|List], Length) :-
    length(List, L),
    L > 0,
-   traveltime(flight(Dep, Arr, DTimeHM), List, Length).
+   travel(flight(Dep, Arr, DTimeHM), List, Length).
 
-traveltime(flight(_, _, DTimeHM), [Head|List], Length) :-
+travel(flight(_, _, DTimeHM), [Head|List], Length) :-
    length(List, 0),
-   hoursmins_to_hours(DTimeHM, DTimeH),
+   time_to_hours(DTimeHM, DTimeH),
    arrival_time(Head, ArrivalTime),
    Length is ArrivalTime - DTimeH.
 
-traveltime(flight(Dep, Arr, DTimeHM), [_|List], Length) :-
+travel(flight(Dep, Arr, DTimeHM), [_|List], Length) :-
    length(List, L),
    L > 0,
-   traveltime(flight(Dep, Arr, DTimeHM), List, Length).
+   travel(flight(Dep, Arr, DTimeHM), List, Length).
 
 shortest(Depart, Arrive, List) :-
-   listpath(Depart, Arrive, List),
+   path(Depart, Arrive, List),
    noshorter(Depart, Arrive, List).
 
 noshorter(Depart, Arrive, List) :-
-   listpath(Depart, Arrive, List2),
-   traveltime(List, Length1),
-   traveltime(List2, Length2),
+   path(Depart, Arrive, List2),
+   travel(List, Length1),
+   travel(List2, Length2),
    Length1 > Length2,
    !, fail.
 
 noshorter(_, _, _).
 
-fly( Depart, Arrive ) :-
+fly(Depart, Arrive) :-
    shortest(Depart, Arrive, List),
    nl,
-   writepath(List),!.
+   write_path(List),!.
 
-fly( Depart, Depart ) :-
+fly(Depart, Depart) :-
    write('Error: Departure and arrival airports are the same.'),
    !, fail.
 
-fly( Depart, _ ) :-
+fly(Depart, _) :-
    \+ airport(Depart, _, _, _),
    write('Departure airport was invalid.'),
    !, fail.
 
-fly( _, Arrive ) :-
+fly(_, Arrive) :-
    \+ airport(Arrive, _, _, _),
    write('Arrival airport was invalid.'),
    !, fail.
 
-fly( Depart, Arrive ) :- 
+fly(Depart, Arrive) :- 
    \+shortest(Depart, Arrive, _),
    write('Error: Did not find a valid itinerary.'),
    !, fail.
