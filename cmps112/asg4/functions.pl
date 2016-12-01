@@ -148,15 +148,15 @@ fly(Depart, Depart) :-
 
 fly(Depart, _) :-
    \+ airport(Depart, _, _, _),
-   write('Departure airport was invalid.'),
+   write('Departure invalid.'),
    !, fail.
 
 fly(_, Arrive) :-
    \+ airport(Arrive, _, _, _),
-   write('Arrival airport was invalid.'),
+   write('Arrival invalid.'),
    !, fail.
 
 fly(Depart, Arrive) :- 
    \+shortest(Depart, Arrive, _),
-   write('Error: Did not find a valid itinerary.'),
+   write('Error: No valid itinerary.'),
    !, fail.
