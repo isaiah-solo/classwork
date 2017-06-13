@@ -1,0 +1,9 @@
+Isaiah Solomon
+
+Design Document
+
+My program is a shell that recreates various redirection and piping that standards shells use.
+
+My program calls execvc() to execute commands, while specially handling the exit and cd internal commands. The program also handles redirection and piping by recognizing special characters and using the lex.l.
+
+I used the execvc(), chdir(), close, dup2(), and pipe() functions. My main function handles the command parsing, while each individual function handles specific tasks, such as redirecting input, or piping.
